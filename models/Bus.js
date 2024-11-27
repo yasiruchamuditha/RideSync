@@ -6,32 +6,37 @@ const busSchema = new mongoose.Schema({
     required: true, 
     unique: true, 
     trim: true 
-  }, // NTC registration number for the bus
+  }, //Bus NTC registration number
   conductorNtcRegistrationNumber: { 
     type: String, 
     required: true, 
     trim: true 
-  }, // Conductor's NTC registration number
+  }, // Bus Conductor's NTC registration number
   driverNtcRegistrationNumber: { 
     type: String, 
     required: true, 
     trim: true 
-  }, // Driver's NTC registration number
+  }, //Bus Driver's NTC registration number
   busNumber: { 
     type: String, 
     required: true, 
     unique: true, 
     trim: true 
-  }, // Bus's unique number
+  }, // Bus's License Register number
   capacity: { 
     type: Number, 
     required: true 
-  }, // Total number of seats
+  }, // Bus Total seats
   route: { 
     type: String, 
     required: true, 
     trim: true 
-  }, // Route for the bus
+  }, // Route of the bus
+  routeNo: { 
+    type: String, 
+    required: true, 
+    trim: true 
+  }, // Route of the bus
 });
 
 module.exports = mongoose.model('Bus', busSchema);
