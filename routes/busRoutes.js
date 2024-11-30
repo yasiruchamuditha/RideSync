@@ -1,15 +1,19 @@
 //busRoutes.js
-const express = require('express');
-const {
+//Bus Routes for RIDESYNC
+import express from 'express';
+// Importing the busController
+import {
   createBus,
   getAllBuses,
   getBusById,
   updateBus,
   deleteBus,
-} = require('../controllers/busController');
+} from '../controllers/busController.js';
 
+// Defining the router
 const router = express.Router();
 
+// Swagger API Documentation
 /**
  * @swagger
  * tags:
@@ -141,4 +145,4 @@ router.put('/:id', updateBus);
  */
 router.delete('/:id', deleteBus);
 
-module.exports = router;
+export default router;
