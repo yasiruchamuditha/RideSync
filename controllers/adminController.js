@@ -1,3 +1,4 @@
+//adminController.js
 import User from '../models/User.js';
 
 // Get all users (Admin-only)
