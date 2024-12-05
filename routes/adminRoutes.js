@@ -1,10 +1,6 @@
+//adminRoutes.js
 import express from 'express';
-import {
-    getAllUsers,
-    getUserById,
-    updateUser,
-    deleteUser,
-} from '../controllers/adminController.js';
+import { getAllUsers, getUserById, updateUser, deleteUser } from '../controllers/adminController.js';
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();

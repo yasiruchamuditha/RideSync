@@ -1,3 +1,4 @@
+//commumterRoutes.js
 import express from 'express';
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
 
