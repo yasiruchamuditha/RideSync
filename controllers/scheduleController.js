@@ -2,7 +2,7 @@ import Schedule from '../models/Schedule.js';
 import seatLayout from '../utils/seatLayout.js';
 
 // Create a new schedule
-export const createNewSchedule = async (req, res) => {
+export const createSchedule = async (req, res) => {
   try {
     const {
       busId,
