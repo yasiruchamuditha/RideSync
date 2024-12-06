@@ -32,6 +32,11 @@ const busSchema = new mongoose.Schema({
     min: 1,
     required: true 
   }, // Route of the bus
+  busType: { 
+    type: String, 
+    required: true, 
+    trim: true 
+  }, // Bus type
   route: { 
     type: String, 
     required: true, 
