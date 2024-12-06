@@ -12,6 +12,7 @@ export const createBus = async (req, res) => {
       driverNtcRegistrationNumber,
       busNumber,
       capacity,
+      busType,
       route,
       routeNo,
     } = req.body;
@@ -23,6 +24,7 @@ export const createBus = async (req, res) => {
       driverNtcRegistrationNumber,
       busNumber,
       capacity,
+      busType,
       route,
       routeNo,
     });
