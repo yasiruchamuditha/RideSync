@@ -1,3 +1,4 @@
+//scheduleController.js
 import Schedule from '../models/Schedule.js';
 import seatLayout from '../utils/seatLayout.js';
 
