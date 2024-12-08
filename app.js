@@ -3,9 +3,9 @@ import cookieParser from 'cookie-parser'; // Import the cookie-parser module
 import express from 'express'; // Import the express module
 import { connectDB } from './config/db.js'; // Import the connectDB function
 import busRoutes from './routes/busRoutes.js'; // Import the busRoutes
-import authRoutes from './routes/authRoutes.js';// Import the authRoutes
-import adminRoutes from './routes/adminRoutes.js';// Import the adminRoutes
-import scheduleRoutes from './routes/scheduleRoutes.js';// Import the scheduleRoutes
+import authRoutes from './routes/authRoutes.js'; // Import the authRoutes
+import adminRoutes from './routes/adminRoutes.js'; // Import the adminRoutes
+import scheduleRoutes from './routes/scheduleRoutes.js'; // Import the scheduleRoutes
 
 // Load environment variables BEFORE using them
 dotenv.config();
@@ -32,8 +32,5 @@ app.use('/api/auth', authRoutes); // Public routes (signup, login)
 app.use('/api/admin', adminRoutes); // Admin routes (get users, delete user)
 app.use('/api/schedules', scheduleRoutes); // Schedule routes (get schedules, create schedule)
 
-// Start the server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Export the app
+export default app;
