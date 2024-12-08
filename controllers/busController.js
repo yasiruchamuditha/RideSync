@@ -7,9 +7,9 @@ export const createBus = async (req, res) => {
   try {
     // Get the bus details from the request body
     const {
-      ntcRegistrationNumber,
-      conductorNtcRegistrationNumber,
-      driverNtcRegistrationNumber,
+      ntcRegNumber,
+      conductorNtcRegNumber,
+      driverNtcRegNumber,
       busNumber,
       capacity,
       busType,
@@ -19,9 +19,9 @@ export const createBus = async (req, res) => {
 
     // Check if the bus already exists
     const newBus = new Bus({
-      ntcRegistrationNumber,
-      conductorNtcRegistrationNumber,
-      driverNtcRegistrationNumber,
+      ntcRegNumber,
+      conductorNtcRegNumber,
+      driverNtcRegNumber,
       busNumber,
       capacity,
       busType,
