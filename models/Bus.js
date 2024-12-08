@@ -4,19 +4,19 @@ import mongoose from 'mongoose';
 
 const busSchema = new mongoose.Schema({
   //Bus NTC registration number
-  ntcRegistrationNumber: { 
+  ntcRegNumber: { 
     type: String, 
     //match: /^[A-Z0-9-]+$/,
     required: true, 
     unique: true, 
     trim: true 
   }, //Bus Conductor's NTC registration number
-  conductorNtcRegistrationNumber: { 
+  conductorNtcRegNumber: { 
     type: String, 
     required: true, 
     trim: true 
   }, // Bus Driver's NTC registration number
-  driverNtcRegistrationNumber: { 
+  driverNtcRegNumber: { 
     type: String, 
     required: true, 
     trim: true 
@@ -32,6 +32,11 @@ const busSchema = new mongoose.Schema({
     min: 1,
     required: true 
   }, // Route of the bus
+  busType: { 
+    type: String, 
+    required: true, 
+    trim: true 
+  }, // Bus type
   route: { 
     type: String, 
     required: true, 
