@@ -6,6 +6,7 @@ import busRoutes from './routes/busRoutes.js'; // Import the busRoutes
 import authRoutes from './routes/authRoutes.js'; // Import the authRoutes
 import adminRoutes from './routes/adminRoutes.js'; // Import the adminRoutes
 import scheduleRoutes from './routes/scheduleRoutes.js'; // Import the scheduleRoutes
+import routeRoutes from './routes/routeRoutes.js'; // Import the routeRoutes
 
 // Load environment variables BEFORE using them
 dotenv.config();
@@ -31,6 +32,7 @@ app.use('/api/buses', busRoutes);
 app.use('/api/auth', authRoutes); // Public routes (signup, login)
 app.use('/api/admin', adminRoutes); // Admin routes (get users, delete user)
 app.use('/api/schedules', scheduleRoutes); // Schedule routes (get schedules, create schedule)
+app.use('/api/routes', routeRoutes); // Route routes (get routes, create route)
 
 // Export the app
 export default app;
