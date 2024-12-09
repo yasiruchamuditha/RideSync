@@ -102,3 +102,77 @@ export const addManualRoute = async (req, res) => {
     }
   };
   
+  // Add time slots to an existing route
+  export const addTimeSlots = async (req, res) => {
+    const { routeId, timeSlots } = req.body;
+  
+    try {
+      const route = await Route.findById(routeId);
+      if (!route) return res.status(404).json({ message: "Route not found" });
+  
+      route.timeSlots.push(...timeSlots); // Add time slots
+      await route.save();
+  
+      res.status(200).json({
+        message: "Time slots added successfully",
+        route,
+      });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+  // Update a time slot
+  export const updateTimeSlot = async (req, res) => {
+    const { routeId, timeSlotId, updates } = req.body;
+  
+    try {
+      const route = await Route.findById(routeId);
+      if (!route) return res.status(404).json({ message: "Route not found" });
+  
+      const timeSlot = route.timeSlots.id(timeSlotId);
+      if (!timeSlot) return res.status(404).json({ message: "Time slot not found" });
+  
+      Object.assign(timeSlot, updates); // Update fields
+      await route.save();
+  
+      res.status(200).json({
+        message: "Time slot updated successfully",
+        route,
+      });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+  
+// Delete a time slot
+  export const deleteTimeSlot = async (req, res) => {
+    const { routeId, timeSlotId } = req.body;
+  
+    try {
+      const route = await Route.findById(routeId);
+      if (!route) return res.status(404).json({ message: "Route not found" });
+  
+      route.timeSlots.id(timeSlotId).remove();
+      await route.save();
+  
+      res.status(200).json({
+        message: "Time slot removed successfully",
+        route,
+      });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+  
+
+  // const isOverlapping = (existingSlots, newSlot) => {
+  //   return existingSlots.some(slot => {
+  //     return (
+  //       slot.busId === newSlot.busId &&
+  //       ((newSlot.startTime >= slot.startTime && newSlot.startTime < slot.endTime) ||
+  //         (newSlot.endTime > slot.startTime && newSlot.endTime <= slot.endTime))
+  //     );
+  //   });
+  // };
+  

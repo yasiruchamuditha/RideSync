@@ -35,6 +35,14 @@ const routeSchema = new Schema({
       ref: 'Bus',
     },
   ],
+  timeSlots: [
+    {
+      startTime: { type: String, required: true },
+      endTime: { type: String, required: true },
+      availableSeats: { type: Number, required: true },
+      busId: { type: Schema.Types.ObjectId, ref: 'Bus' },
+    }
+  ]
 }, { timestamps: true });
 
 const Route = mongoose.model('Route', routeSchema);
