@@ -1,3 +1,4 @@
+//bookingController.js
 import Booking from '../models/Booking.js'; // Adjust the import path as necessary
 import Schedule from '../models/Schedule.js'; // Adjust the import path as necessary
 

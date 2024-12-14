@@ -1,3 +1,4 @@
+//booking Route.js
 import express from 'express';
 import { createBooking, getAllBookings, getBookingById, updateBookingById, deleteBookingById } from '../controllers/bookingController.js'; // Adjust the import path as necessary
 
