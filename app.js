@@ -1,11 +1,13 @@
 import dotenv from 'dotenv'; // Import the dotenv module
-import cookieParser from 'cookie-parser'; // Import the cookie-parser module
 import express from 'express'; // Import the express module
+import cookieParser from 'cookie-parser'; // Import the cookie-parser module
+import cors from 'cors'; // Import CORS for handling cross-origin requests
 import { connectDB } from './config/db.js'; // Import the connectDB function
 import busRoutes from './routes/busRoutes.js'; // Import the busRoutes
 import authRoutes from './routes/authRoutes.js'; // Import the authRoutes
 import adminRoutes from './routes/adminRoutes.js'; // Import the adminRoutes
 import scheduleRoutes from './routes/scheduleRoutes.js'; // Import the scheduleRoutes
+import routeRoutes from './routes/routeRoutes.js'; // Import the routeRoutes
 
 // Load environment variables BEFORE using them
 dotenv.config();
@@ -22,6 +24,12 @@ connectDB();
 // Create an Express app
 const app = express();
 
+// Enable CORS for your frontend application
+app.use(cors({
+  origin: 'http://localhost:3000', // Allow requests from your frontend's URL
+  methods: ['GET', 'POST'], // Allow only GET and POST methods
+}));
+
 // Use middlewares
 app.use(express.json()); // Handle JSON data
 app.use(cookieParser()); // Handle cookies
@@ -31,6 +39,7 @@ app.use('/api/buses', busRoutes);
 app.use('/api/auth', authRoutes); // Public routes (signup, login)
 app.use('/api/admin', adminRoutes); // Admin routes (get users, delete user)
 app.use('/api/schedules', scheduleRoutes); // Schedule routes (get schedules, create schedule)
+app.use('/api/routes', routeRoutes); // Route routes (get routes, create route)
 
-// Export the app
+// Export the app for use in server.js
 export default app;
