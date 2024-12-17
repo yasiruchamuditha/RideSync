@@ -4,14 +4,15 @@ import {
   getAllFound,
   getFoundById,
   updateFoundById,
-  deleteFoundById
+  deleteFoundById,
+  upload
 } from '../controllers/FoundController.js';
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
-// Create a new found item report (any role)
-router.post('/', authenticate, createFound);
+// Public route for creating a found item report
+router.post('/', upload.array('photos', 4), createFound); // Max 4 files
 
 // Get all found item reports (any role)
 router.get('/', authenticate, getAllFound);
