@@ -9,7 +9,7 @@ import adminRoutes from './routes/adminRoutes.js'; // Import the adminRoutes
 import scheduleRoutes from './routes/scheduleRoutes.js'; // Import the scheduleRoutes
 import routeRoutes from './routes/routeRoutes.js'; // Import the routeRoutes
 import foundRoutes from './routes/foundRoutes.js'; // Import the foundRoutes
-import cors from 'cors'; // Import CORS
+
 
 // Load environment variables BEFORE using them
 dotenv.config();
