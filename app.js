@@ -1,3 +1,4 @@
+//app.js
 import dotenv from 'dotenv'; // Import the dotenv module
 import express from 'express'; // Import the express module
 import cookieParser from 'cookie-parser'; // Import the cookie-parser module
@@ -9,7 +10,8 @@ import adminRoutes from './routes/adminRoutes.js'; // Import the adminRoutes
 import scheduleRoutes from './routes/scheduleRoutes.js'; // Import the scheduleRoutes
 import routeRoutes from './routes/routeRoutes.js'; // Import the routeRoutes
 import foundRoutes from './routes/foundRoutes.js'; // Import the foundRoutes
-import cors from 'cors'; // Import CORS
+import lostRoutes from './routes/lostRoutes.js'; // Import the lostRoutes
+
 
 // Load environment variables BEFORE using them
 dotenv.config();
@@ -44,6 +46,7 @@ app.use('/api/admin', adminRoutes); // Admin routes (get users, delete user)
 app.use('/api/schedules', scheduleRoutes); // Schedule routes (get schedules, create schedule)
 app.use('/api/routes', routeRoutes); // Route routes (get routes, create route)
 app.use('/api/found', foundRoutes); // Found item routes
+app.use('/api/lost', lostRoutes);// Lost item routes
 app.use('/uploads', express.static('uploads')); // Serve uploaded files as static assets
 
 // Export the app for use in server.js
