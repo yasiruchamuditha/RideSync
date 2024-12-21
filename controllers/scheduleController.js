@@ -19,13 +19,17 @@ export const createSchedule = async (req, res) => {
       rows = 10,       // Default to 10 rows if not provided
     } = req.body;
 
+     // Strip time from date
+     const strippedDate = new Date(date);
+     strippedDate.setUTCHours(0, 0, 0, 0); // Set time to midnight UTC
+
     // Generate seat layout dynamically
     const seats = seatLayout(totalSeats, rows);
 
     const newSchedule = new Schedule({
       busId,
       busRouteType,
-      date,
+      date: strippedDate,
       startCity,
       endCity,
       arrivalTime,
