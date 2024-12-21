@@ -31,8 +31,4 @@ router.delete('/:id', authenticate, authorizeRole(['admin']), deleteScheduleById
 // Search schedules by start city, end city, and date
 router.post('/search', authenticate, searchSchedules);
 
-
-// Route to create a new schedule
-router.post('/', createSchedule);
-
 export default router;
