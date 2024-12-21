@@ -5,7 +5,8 @@ import {
   getAllSchedules,
   getScheduleById,
   updateScheduleById,
-  deleteScheduleById
+  deleteScheduleById,
+  searchSchedules
 } from '../controllers/scheduleController.js';
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
 
@@ -15,15 +16,18 @@ const router = express.Router();
 router.post('/', authenticate, authorizeRole(['admin']), createSchedule);
 
 // Get all schedules
-router.get('/', authenticate, authorizeRole(['admin']), getAllSchedules);
+router.get('/', authenticate, getAllSchedules);
 
 // Get schedule by ID
-router.get('/:id', authenticate, authorizeRole(['admin']), getScheduleById);
+router.get('/:id', authenticate, getScheduleById);
 
 // Update schedule by ID
 router.put('/:id', authenticate, authorizeRole(['admin']), updateScheduleById);
 
 // Delete schedule by ID
 router.delete('/:id', authenticate, authorizeRole(['admin']), deleteScheduleById);
+
+// Search schedules by start city, end city, and date
+router.post('/search', authenticate, searchSchedules);
 
 export default router;
