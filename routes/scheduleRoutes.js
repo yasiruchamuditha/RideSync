@@ -10,7 +10,6 @@ import {
   } from '../controllers/scheduleController.js';
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
   
-import { createSchedule } from '../controllers/scheduleController.js';
 
 const router = express.Router();
 
