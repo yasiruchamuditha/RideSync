@@ -23,18 +23,6 @@ const ScheduleSchema = new Schema({
         type: String,
         required: true,
     },
-    route: {
-        type: Schema.Types.ObjectId,
-        ref: "Route",
-    },
-    departureTime: {
-        type: String,
-        required: true,
-    },
-    arrivalTime: {
-        type: String,
-        required: true,
-    },
     estimatedTime: {
         type: String,
         required: true,
@@ -53,8 +41,6 @@ const ScheduleSchema = new Schema({
             seatNumber: String,
             bookedBy: { type: Schema.Types.ObjectId, ref: "User", default: null },
             position: String,
-            isBooked: { type: Boolean, default: false },
-            seatAvailableState: { type: String, default: "available" },
         }
     ],
 }, { timestamps: true });
