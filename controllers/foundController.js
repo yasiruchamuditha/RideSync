@@ -1,8 +1,31 @@
 import Found from '../models/Found.js';
 
+import multer from 'multer';
+
+// Multer configuration
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/found_report'); // Save files to the 'uploads' folder
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`); // Unique filename
+  },
+});
+
+const upload = multer({ storage });
+
+
 // Create a new found item report
 export const createFound = async (req, res) => {
   try {
+    const photos = req.files ? req.files.map(file => `/uploads/found_report${file.filename}`) : [];
+
+    // const foundItem = new Found({
+    //   ...req.body,
+    //   photos,
+    // });
+
+
     const foundItem = new Found(req.body);
     await foundItem.save();
     res.status(201).json({ message: 'Found item report created successfully', foundItem });
@@ -10,6 +33,23 @@ export const createFound = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+
+export { upload };
+
+// Remaining controller methods...
+
+// // Create a new found item report
+// export const createFound = async (req, res) => {
+//   try {
+//     const foundItem = new Found(req.body);
+//     await foundItem.save();
+//     res.status(201).json({ message: 'Found item report created successfully', foundItem });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
+
 
 // Get all found item reports
 export const getAllFound = async (req, res) => {
