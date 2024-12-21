@@ -3,16 +3,16 @@ import Route from '../models/Routes.js';
 // Add predefined routes
 export const addRoutes = async (req, res) => {
   const predefinedRoutes = [
-    { routeName: 'Galle-Colombo', startCity: 'Galle', endCity: 'Colombo', routeType: 'Normal' },
-    { routeName: 'Galle-Colombo (Expressway)', startCity: 'Galle', endCity: 'Colombo', routeType: 'Expressway' },
-    { routeName: 'Colombo-Kandy', startCity: 'Colombo', endCity: 'Kandy', routeType: 'Normal' },
-    { routeName: 'Colombo-Kandy (Expressway)', startCity: 'Colombo', endCity: 'Kandy', routeType: 'Expressway' },
-    { routeName: 'Kandy-Jaffna', startCity: 'Kandy', endCity: 'Jaffna', routeType: 'Normal' },
-    { routeName: 'Matara-Colombo', startCity: 'Matara', endCity: 'Colombo', routeType: 'Normal' },
-    { routeName: 'Matara-Colombo (Expressway)', startCity: 'Matara', endCity: 'Colombo', routeType: 'Expressway' },
-    { routeName: 'Kandy-Nuwara Eliya', startCity: 'Kandy', endCity: 'Nuwara Eliya', routeType: 'Normal' },
-    { routeName: 'Jaffna-Trincomalee', startCity: 'Jaffna', endCity: 'Trincomalee', routeType: 'Normal' },
-    { routeName: 'Hambantota-Galle', startCity: 'Hambantota', endCity: 'Galle', routeType: 'Normal' },
+    { routeNumber: 'R001', routeName: 'Galle-Colombo', startCity: 'Galle', endCity: 'Colombo', routeType: 'Normal' },
+    { routeNumber: 'R002', routeName: 'Galle-Colombo (Expressway)', startCity: 'Galle', endCity: 'Colombo', routeType: 'Expressway' },
+    { routeNumber: 'R003', routeName: 'Colombo-Kandy', startCity: 'Colombo', endCity: 'Kandy', routeType: 'Normal' },
+    { routeNumber: 'R004', routeName: 'Colombo-Kandy (Expressway)', startCity: 'Colombo', endCity: 'Kandy', routeType: 'Expressway' },
+    { routeNumber: 'R005', routeName: 'Kandy-Jaffna', startCity: 'Kandy', endCity: 'Jaffna', routeType: 'Normal' },
+    { routeNumber: 'R006', routeName: 'Matara-Colombo', startCity: 'Matara', endCity: 'Colombo', routeType: 'Normal' },
+    { routeNumber: 'R007', routeName: 'Matara-Colombo (Expressway)', startCity: 'Matara', endCity: 'Colombo', routeType: 'Expressway' },
+    { routeNumber: 'R008', routeName: 'Kandy-Nuwara Eliya', startCity: 'Kandy', endCity: 'Nuwara Eliya', routeType: 'Normal' },
+    { routeNumber: 'R009', routeName: 'Jaffna-Trincomalee', startCity: 'Jaffna', endCity: 'Trincomalee', routeType: 'Normal' },
+    { routeNumber: 'R010', routeName: 'Hambantota-Galle', startCity: 'Hambantota', endCity: 'Galle', routeType: 'Normal' },
   ];
 
   try {
@@ -26,153 +26,71 @@ export const addRoutes = async (req, res) => {
 // Get all routes
 export const getAllRoutes = async (req, res) => {
   try {
-    const routes = await Route.find().populate('busesAssigned');
+    const routes = await Route.find();
     res.status(200).json(routes);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-// Assign a bus to a route
-export const assignBusToRoute = async (req, res) => {
-  const { routeId, busId } = req.body;
+// Add a manual route based on user input
+export const addManualRoute = async (req, res) => {
+  const { routeNumber, routeName, startCity, endCity, routeType } = req.body;
 
   try {
-    const route = await Route.findById(routeId);
-    if (!route) return res.status(404).json({ message: 'Route not found' });
+    if (!routeNumber || !routeName || !startCity || !endCity || !routeType) {
+      return res.status(400).json({ message: 'All required fields must be provided' });
+    }
 
-    route.busesAssigned.push(busId);
-    await route.save();
+    const existingRoute = await Route.findOne({ routeNumber });
+    if (existingRoute) {
+      return res.status(400).json({ message: 'Route number already exists' });
+    }
 
-    res.status(200).json({ message: 'Bus assigned to route', route });
+    const newRoute = new Route({
+      routeNumber,
+      routeName,
+      startCity,
+      endCity,
+      routeType,
+    });
+
+    await newRoute.save();
+    res.status(201).json({ message: 'Route added successfully', route: newRoute });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
+// Update a route
+export const updateRoute = async (req, res) => {
+  const { routeId, updates } = req.body;
 
-// Add stops to an existing route
-export const addStops = async (req, res) => {
-    const { routeId, stops } = req.body;
-  
-    try {
-      // Find the route by ID
-      const route = await Route.findById(routeId);
-      if (!route) return res.status(404).json({ message: 'Route not found' });
-  
-      // Add new stops to the route
-      route.stops.push(...stops);
-      await route.save();
-  
-      res.status(200).json({ message: 'Stops added successfully', route });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  };
+  try {
+    const route = await Route.findByIdAndUpdate(routeId, updates, { new: true });
+    if (!route) return res.status(404).json({ message: "Route not found" });
 
-  // Add a manual route based on user input
-export const addManualRoute = async (req, res) => {
-    const { routeName, startCity, endCity, routeType, stops } = req.body;
-  
-    try {
-      // Validate input
-      if (!routeName || !startCity || !endCity || !routeType) {
-        return res.status(400).json({ message: 'All required fields must be provided' });
-      }
-  
-      // Check for duplicate route name
-      const existingRoute = await Route.findOne({ routeName });
-      if (existingRoute) {
-        return res.status(400).json({ message: 'Route name already exists' });
-      }
-  
-      // Create new route
-      const newRoute = new Route({
-        routeName,
-        startCity,
-        endCity,
-        routeType,
-        stops: stops || [], // Use empty array if stops are not provided
-      });
-  
-      await newRoute.save();
-      res.status(201).json({ message: 'Route added successfully', route: newRoute });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  };
-  
-  // Add time slots to an existing route
-  export const addTimeSlots = async (req, res) => {
-    const { routeId, timeSlots } = req.body;
-  
-    try {
-      const route = await Route.findById(routeId);
-      if (!route) return res.status(404).json({ message: "Route not found" });
-  
-      route.timeSlots.push(...timeSlots); // Add time slots
-      await route.save();
-  
-      res.status(200).json({
-        message: "Time slots added successfully",
-        route,
-      });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  };
+    res.status(200).json({
+      message: "Route updated successfully",
+      route,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
-  // Update a time slot
-  export const updateTimeSlot = async (req, res) => {
-    const { routeId, timeSlotId, updates } = req.body;
-  
-    try {
-      const route = await Route.findById(routeId);
-      if (!route) return res.status(404).json({ message: "Route not found" });
-  
-      const timeSlot = route.timeSlots.id(timeSlotId);
-      if (!timeSlot) return res.status(404).json({ message: "Time slot not found" });
-  
-      Object.assign(timeSlot, updates); // Update fields
-      await route.save();
-  
-      res.status(200).json({
-        message: "Time slot updated successfully",
-        route,
-      });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  };
-  
-// Delete a time slot
-  export const deleteTimeSlot = async (req, res) => {
-    const { routeId, timeSlotId } = req.body;
-  
-    try {
-      const route = await Route.findById(routeId);
-      if (!route) return res.status(404).json({ message: "Route not found" });
-  
-      route.timeSlots.id(timeSlotId).remove();
-      await route.save();
-  
-      res.status(200).json({
-        message: "Time slot removed successfully",
-        route,
-      });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  };
-  
+// Delete a route
+export const deleteRoute = async (req, res) => {
+  const { routeId } = req.body;
 
-  // const isOverlapping = (existingSlots, newSlot) => {
-  //   return existingSlots.some(slot => {
-  //     return (
-  //       slot.busId === newSlot.busId &&
-  //       ((newSlot.startTime >= slot.startTime && newSlot.startTime < slot.endTime) ||
-  //         (newSlot.endTime > slot.startTime && newSlot.endTime <= slot.endTime))
-  //     );
-  //   });
-  // };
-  
+  try {
+    const route = await Route.findByIdAndDelete(routeId);
+    if (!route) return res.status(404).json({ message: "Route not found" });
+
+    res.status(200).json({
+      message: "Route deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

@@ -35,6 +35,7 @@ const ScheduleSchema = new Schema({
         type: String,
         required: true,
     },
+
     estimatedTime: {
         type: String,
         required: true,
@@ -55,6 +56,7 @@ const ScheduleSchema = new Schema({
             position: String,
             isBooked: { type: Boolean, default: false },
             seatAvailableState: { type: String, default: "available" },
+
         }
     ],
 }, { timestamps: true });

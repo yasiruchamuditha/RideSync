@@ -14,6 +14,9 @@ const router = express.Router();
 // Public route for creating a found item report
 router.post('/', upload.array('photos', 4), createFound); // Max 4 files
 
+// Create a new found item report (any role)
+router.post('/', authenticate, createFound);
+
 // Get all found item reports (any role)
 router.get('/', authenticate, getAllFound);
 

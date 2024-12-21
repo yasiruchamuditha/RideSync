@@ -1,6 +1,4 @@
-//foundController.js
 import Found from '../models/Found.js';
-
 import multer from 'multer';
 
 // Multer configuration
@@ -25,6 +23,8 @@ export const createFound = async (req, res) => {
       photos,
     });
 
+
+    //const foundItem = new Found(req.body);
     await foundItem.save();
     res.status(201).json({ message: 'Found item report created successfully', foundItem });
   } catch (err) {
@@ -32,20 +32,9 @@ export const createFound = async (req, res) => {
   }
 };
 
+
 export { upload };
 
-// Remaining controller methods...
-
-// // Create a new found item report
-// export const createFound = async (req, res) => {
-//   try {
-//     const foundItem = new Found(req.body);
-//     await foundItem.save();
-//     res.status(201).json({ message: 'Found item report created successfully', foundItem });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
 
 // Get all found item reports
 export const getAllFound = async (req, res) => {

@@ -43,6 +43,7 @@ export const createSchedule = async (req, res) => {
   }
 };
 
+
 /**
  * Get all schedules
  */
@@ -97,6 +98,23 @@ export const deleteScheduleById = async (req, res) => {
       return res.status(404).json({ message: 'Schedule not found' });
     }
     res.status(200).json({ message: 'Schedule deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+/**
+ * Search schedules by start city, end city, and date
+ */
+export const searchSchedules = async (req, res) => {
+  try {
+    const { startCity, endCity, date } = req.body;
+    const schedules = await Schedule.find({
+      startCity,
+      endCity,
+      date: new Date(date) // Ensure the date is in the correct format
+    });
+    res.status(200).json(schedules);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
