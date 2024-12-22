@@ -1,55 +1,62 @@
-//schedule.js
+//models/schedule.js
 import mongoose from 'mongoose';
 import { Schema } from 'mongoose';
 
 const ScheduleSchema = new Schema({
-    busId: {
+    busId: {                            //Id of the bus
         type: Schema.Types.ObjectId,
         ref: "Bus",
     },
-    busRouteType: {
-        type: String,
-        required: true,
-    },
-    date: {
-        type: Date,
-        required: true,
-    },
-    startCity: {
-        type: String,
-        required: true,
-    },
-    endCity: {
-        type: String,
-        required: true,
-    },
-    route: {
+    route: {                            //route of the bus
         type: Schema.Types.ObjectId,
         ref: "Route",
     },
-    departureTime: {
+    busRouteType: {                    //Type of the bus route [Normal,Semi Luxery,Luxery, ExpressWay]
         type: String,
         required: true,
     },
-    arrivalTime: {
+    startCity: {                        //city where the bus starts its journey
         type: String,
         required: true,
     },
-
-    estimatedTime: {
+    departureDate: {                            //date of the schedule
+        type: Date,
+        required: true,
+    },
+    departureTime: {                     //time of the bus departure from the start city
         type: String,
         required: true,
     },
-    ticketPrice: {
+    endCity: {                         //city where the bus ends its journey
+        type: String,
+        required: true,
+    },
+    arrivalTime: {                        //time of the bus arrival at the destination 
+        type: String,
+        required: true,
+    },
+    arrivalDate: {                            //date of the schedule
+        type: Date,
+        required: true,
+    },
+    estimatedTime: {                     //estimated time of the journey
+        type: String,
+        required: true,
+    },
+    estimatedDistance: {                     //estimated distance of the journey
+        type: String,
+        required: true,
+    },
+    ticketPrice: {                      //price of the ticket
         type: Number,
         required: true,
     },
-    availableSeats: {
+    availableSeats: {                   //number of available seats
         type: Number,
         default: 50,
         required: true,
     },
-    seatLayout: [
+    seatLayout: [                       //layout of the seats
         {
             seatNumber: String,
             bookedBy: { type: Schema.Types.ObjectId, ref: "User", default: null },
