@@ -8,6 +8,7 @@ export const createSchedule = async (req, res) => {
     const {
       busId,
       busRouteType,
+      route,
       startCity,
       departureDate,
       departureTime,
@@ -34,6 +35,7 @@ export const createSchedule = async (req, res) => {
     const newSchedule = new Schedule({
       busId,
       busRouteType,
+      route,
       startCity,
       departureDate: strippeddepDate,
       departureTime,
@@ -119,11 +121,13 @@ export const deleteScheduleById = async (req, res) => {
 export const searchSchedules = async (req, res) => {
   try {
     const { startCity, endCity, departureDate } = req.body;
+    // Find schedules that match the start city, end city, and departure date
     const schedules = await Schedule.find({
       startCity,
       endCity,
-      departureDate: new Date(departureDate) // Ensure the date is in the correct format
-    });
+      departureDate: new Date(departureDate).setUTCHours(0, 0, 0, 0) // Match only the date part
+    }).populate('busId');
+
     res.status(200).json(schedules);
   } catch (err) {
     res.status(500).json({ error: err.message });
