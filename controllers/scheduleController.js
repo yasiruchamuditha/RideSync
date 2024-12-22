@@ -8,20 +8,25 @@ export const createSchedule = async (req, res) => {
     const {
       busId,
       busRouteType,
-      date,
       startCity,
-      endCity,
-      arrivalTime,
+      departureDate,
       departureTime,
+      endCity,
+      arrivalDate,
+      arrivalTime,
       estimatedTime,
+      estimatedDistance,
       ticketPrice,
       totalSeats = 50, // Default to 50 seats if not provided
       rows = 10,       // Default to 10 rows if not provided
     } = req.body;
 
-     // Strip time from date
-     const strippedDate = new Date(date);
-     strippedDate.setUTCHours(0, 0, 0, 0); // Set time to midnight UTC
+    // Strip time from dates
+    const strippeddepDate = new Date(departureDate);
+    strippeddepDate.setUTCHours(0, 0, 0, 0); // Set time to midnight UTC
+
+    const strippedarrivalDate = new Date(arrivalDate);
+    strippedarrivalDate.setUTCHours(0, 0, 0, 0); // Set time to midnight UTC
 
     // Generate seat layout dynamically
     const seats = seatLayout(totalSeats, rows);
@@ -29,12 +34,14 @@ export const createSchedule = async (req, res) => {
     const newSchedule = new Schedule({
       busId,
       busRouteType,
-      date: strippedDate,
       startCity,
-      endCity,
-      arrivalTime,
+      departureDate: strippeddepDate,
       departureTime,
+      endCity,
+      arrivalDate: strippedarrivalDate,
+      arrivalTime,
       estimatedTime,
+      estimatedDistance,
       ticketPrice,
       availableSeats: totalSeats,
       seatLayout: seats,
@@ -46,7 +53,6 @@ export const createSchedule = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
 
 /**
  * Get all schedules
@@ -112,11 +118,11 @@ export const deleteScheduleById = async (req, res) => {
  */
 export const searchSchedules = async (req, res) => {
   try {
-    const { startCity, endCity, date } = req.body;
+    const { startCity, endCity, departureDate } = req.body;
     const schedules = await Schedule.find({
       startCity,
       endCity,
-      date: new Date(date) // Ensure the date is in the correct format
+      departureDate: new Date(departureDate) // Ensure the date is in the correct format
     });
     res.status(200).json(schedules);
   } catch (err) {

@@ -3,16 +3,13 @@ import Route from '../models/Routes.js';
 // Add predefined routes
 export const addRoutes = async (req, res) => {
   const predefinedRoutes = [
-    { routeNumber: 'R001', routeName: 'Galle-Colombo', startCity: 'Galle', endCity: 'Colombo', routeType: 'Normal' },
-    { routeNumber: 'R002', routeName: 'Galle-Colombo (Expressway)', startCity: 'Galle', endCity: 'Colombo', routeType: 'Expressway' },
-    { routeNumber: 'R003', routeName: 'Colombo-Kandy', startCity: 'Colombo', endCity: 'Kandy', routeType: 'Normal' },
-    { routeNumber: 'R004', routeName: 'Colombo-Kandy (Expressway)', startCity: 'Colombo', endCity: 'Kandy', routeType: 'Expressway' },
-    { routeNumber: 'R005', routeName: 'Kandy-Jaffna', startCity: 'Kandy', endCity: 'Jaffna', routeType: 'Normal' },
-    { routeNumber: 'R006', routeName: 'Matara-Colombo', startCity: 'Matara', endCity: 'Colombo', routeType: 'Normal' },
-    { routeNumber: 'R007', routeName: 'Matara-Colombo (Expressway)', startCity: 'Matara', endCity: 'Colombo', routeType: 'Expressway' },
-    { routeNumber: 'R008', routeName: 'Kandy-Nuwara Eliya', startCity: 'Kandy', endCity: 'Nuwara Eliya', routeType: 'Normal' },
-    { routeNumber: 'R009', routeName: 'Jaffna-Trincomalee', startCity: 'Jaffna', endCity: 'Trincomalee', routeType: 'Normal' },
-    { routeNumber: 'R010', routeName: 'Hambantota-Galle', startCity: 'Hambantota', endCity: 'Galle', routeType: 'Normal' },
+    { routeNumber: '001', routeName: 'Kandy-Colombo', startCity: 'Kandy', endCity: 'Colombo', routeType: 'Normal' },
+    { routeNumber: '001-1', routeName: 'Kegalle-Colombo', startCity: 'kegalle', endCity: 'Colombo', routeType: 'Normal' },
+    { routeNumber: '002', routeName: 'Matara-Colombo', startCity: 'Matara', endCity: 'Colombo', routeType: 'Normal' },
+    { routeNumber: '002-1', routeName: 'Galle-Colombo', startCity: 'Galle', endCity: 'Colombo', routeType: 'Normal' },
+    { routeNumber: '003', routeName: 'Avissawella-Colombo', startCity: 'Avissawella', endCity: 'Colombo', routeType: 'Normal' },
+    { routeNumber: '003-1', routeName: 'Embilipitiya-Colombo', startCity: 'Embilipitiya', endCity: 'Colombo', routeType: 'Normal' },
+    { routeNumber: '004', routeName: 'Anuradapura -Colombo', startCity: 'Anuradapura ', endCity: 'Colombo', routeType: 'Normal' },
   ];
 
   try {
