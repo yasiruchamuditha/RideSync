@@ -9,7 +9,7 @@ const ScheduleSchema = new Schema({
     },
     route: {                            //route of the bus
         type: Schema.Types.ObjectId,
-        ref: "Route",
+        ref: "Routes",
     },
     busRouteType: {                    //Type of the bus route [Normal,Semi Luxery,Luxery, ExpressWay]
         type: String,
