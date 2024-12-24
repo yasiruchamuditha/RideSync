@@ -1,6 +1,7 @@
 //scheduleController.js
 import Schedule from '../models/Schedule.js';
 import seatLayout from '../utils/seatLayout.js';
+import Bus from '../models/Bus.js';
 
 // Create a new schedule
 export const createSchedule = async (req, res) => {
@@ -121,6 +122,7 @@ export const deleteScheduleById = async (req, res) => {
 export const searchSchedules = async (req, res) => {
   try {
     const { startCity, endCity, departureDate } = req.body;
+
     // Find schedules that match the start city, end city, and departure date
     const schedules = await Schedule.find({
       startCity,
@@ -128,7 +130,16 @@ export const searchSchedules = async (req, res) => {
       departureDate: new Date(departureDate).setUTCHours(0, 0, 0, 0) // Match only the date part
     }).populate('busId');
 
-    res.status(200).json(schedules);
+    // Fetch bus details for each schedule
+    const schedulesWithBusDetails = await Promise.all(schedules.map(async (schedule) => {
+      const busDetails = await Bus.findById(schedule.busId);
+      return {
+        ...schedule.toObject(),
+        busDetails,
+      };
+    }));
+
+    res.status(200).json(schedulesWithBusDetails);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
