@@ -3,31 +3,31 @@ import mongoose from 'mongoose';
 import { Schema } from 'mongoose';
 
 const ScheduleSchema = new Schema({
-    busId: {                            //Id of the bus
+    busId: {                            // Id of the bus
         type: Schema.Types.ObjectId,
         ref: "Bus",
     },
-    route: {                            //route of the bus
+    route: {                            // Route of the bus
         type: Schema.Types.ObjectId,
         ref: "Routes",
     },
-    busRouteType: {                    //Type of the bus route [Normal,Semi Luxery,Luxery, ExpressWay]
+    busRouteType: {                    // Type of the bus route [Normal, Semi Luxury, Luxury, ExpressWay]
         type: String,
         required: true,
     },
-    startCity: {                        //city where the bus starts its journey
+    startCity: {                        // City where the bus starts its journey
         type: String,
         required: true,
     },
-    departureDate: {                            //date of the schedule
+    departureDate: {                            // Date of the schedule
         type: Date,
         required: true,
     },
-    departureTime: {                     //time of the bus departure from the start city
+    departureTime: {                     // Time of the bus departure from the start city
         type: String,
         required: true,
     },
-    endCity: {                         //city where the bus ends its journey
+    endCity: {                         // City where the bus ends its journey
         type: String,
         required: true,
     },
