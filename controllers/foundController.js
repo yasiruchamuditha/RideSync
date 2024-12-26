@@ -23,8 +23,6 @@ export const createFound = async (req, res) => {
       photos,
     });
 
-
-    //const foundItem = new Found(req.body);
     await foundItem.save();
     res.status(201).json({ message: 'Found item report created successfully', foundItem });
   } catch (err) {
