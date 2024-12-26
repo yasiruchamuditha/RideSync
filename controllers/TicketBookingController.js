@@ -21,7 +21,7 @@ export const createTicketBooking = async (req, res) => {
         );
 
         if (unavailableSeats.length > 0) {
-            return res.status(400).json({ message: 'Some of the seats are already booked.' });
+            return res.status(400).json({ message: 'Seats are already booked.' });
         }
 
         // Update the seat layout and available seats
