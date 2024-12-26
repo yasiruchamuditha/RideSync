@@ -5,6 +5,7 @@ import {
   addManualRoute,
   updateRoute,
   deleteRoute,
+  getRouteById,
 } from '../controllers/routeController.js';
 
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
@@ -19,6 +20,9 @@ router.post('/add-manual', authenticate, addManualRoute);
 
 // Get all routes
 router.get('/', authenticate, getAllRoutes);
+
+// Get a route by ID
+router.get('/:id', authenticate,getRouteById);
 
 // Update a route
 router.put('/update-route', authenticate, updateRoute);

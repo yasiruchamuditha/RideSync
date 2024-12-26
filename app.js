@@ -31,7 +31,8 @@ const app = express();
 // Enable CORS for your frontend application
 app.use(cors({
   origin: 'http://localhost:3000', // Allow requests from your frontend's URL
-  methods: [ 'GET', 'POST'], // Allow only GET and POST methods
+  methods: [ 'GET', 'POST','PUT', 'DELETE'], // Allow only GET and POST methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
 }));
 
 // Use middlewares
