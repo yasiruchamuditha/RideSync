@@ -1,14 +1,6 @@
 //lostController.js
 import Lost from '../models/Lost.js';
 import multer from 'multer';
-import fs from 'fs';
-import path from 'path';
-
-// Ensure the directory exists
-const lostReportDir = path.join(path.resolve(), 'uploads', 'lost_report');
-if (!fs.existsSync(lostReportDir)) {
-  fs.mkdirSync(lostReportDir, { recursive: true });
-}
 
 // Multer configuration
 const storage = multer.diskStorage({
@@ -38,6 +30,8 @@ export const createLost = async (req, res) => {
   }
 };
 
+export { upload };
+
 export const getAllLost = async (req, res) => {
   try {
     const lostItems = await Lost.find();
@@ -62,15 +56,21 @@ export const getLostById = async (req, res) => {
 export const updateLostById = async (req, res) => {
   try {
     const { id } = req.params;
-    const lostItem = await Lost.findById(id);
+    const updateLostItem = await Lost.findById(id);
 
-    if (!lostItem) {
+    if (!updateLostItem) {
       return res.status(404).json({ message: 'Lost item not found' });
     }
 
-    Object.assign(lostItem, req.body);
-    await lostItem.save();
-    res.status(200).json({ message: 'Lost item report updated successfully', lostItem });
+     // Check if the user is the one who created the report or an admin
+     if (req.user.role !== 'admin' && updateLostItem.email !== req.user.email) {
+      return res.status(403).json({ message: 'Access denied. Insufficient permissions.' });
+    }
+
+
+    Object.assign(updateLostItem, req.body);
+    await updateLostItem.save();
+    res.status(200).json({ message: 'Lost item report updated successfully', updateLostItem });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -79,17 +79,23 @@ export const updateLostById = async (req, res) => {
 export const deleteLostById = async (req, res) => {
   try {
     const { id } = req.params;
-    const lostItem = await Lost.findById(id);
+    const deleteLostItem = await Lost.findById(id);
 
-    if (!lostItem) {
+    if (!deleteLostItem) {
       return res.status(404).json({ message: 'Lost item not found' });
     }
 
-    await lostItem.remove();
+    
+    // Only admin can delete found item reports
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Access denied. Insufficient permissions.' });
+    }
+
+
+    await deleteLostItem.remove();
     res.status(200).json({ message: 'Lost item report deleted successfully' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-export { upload };
