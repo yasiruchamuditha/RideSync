@@ -85,17 +85,14 @@ export const deleteLostById = async (req, res) => {
       return res.status(404).json({ message: 'Lost item not found' });
     }
 
-    
     // Only admin can delete found item reports
     if (req.user.role !== 'admin') {
       return res.status(403).json({ message: 'Access denied. Insufficient permissions.' });
     }
 
-
-    await deleteLostItem.remove();
+    await Lost.deleteOne({ _id: id });
     res.status(200).json({ message: 'Lost item report deleted successfully' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
-

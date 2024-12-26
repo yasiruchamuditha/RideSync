@@ -86,3 +86,28 @@ export const deleteBus = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+
+// Get a bus by NTC registration number
+export const getBusByNtcRegNumber = async (req, res) => {
+  try {
+    const { ntcRegNumber } = req.params;
+    const bus = await Bus.findOne({ ntcRegNumber });
+    if (!bus) return res.status(404).json({ message: 'Bus not found' });
+    res.status(200).json(bus);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Update a bus by NTC registration number
+export const updateBusByNtcRegNumber = async (req, res) => {
+  try {
+    const { ntcRegNumber } = req.params;
+    const updatedBus = await Bus.findOneAndUpdate({ ntcRegNumber }, req.body, { new: true });
+    if (!updatedBus) return res.status(404).json({ message: 'Bus not found' });
+    res.status(200).json({ message: 'Bus updated successfully', bus: updatedBus });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

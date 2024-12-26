@@ -95,7 +95,7 @@ export const deleteFoundById = async (req, res) => {
       return res.status(403).json({ message: 'Access denied. Insufficient permissions.' });
     }
 
-    await foundItem.remove();
+    await Found.deleteOne({ _id: id });
     res.status(200).json({ message: 'Found item report deleted successfully' });
   } catch (err) {
     res.status(500).json({ error: err.message });

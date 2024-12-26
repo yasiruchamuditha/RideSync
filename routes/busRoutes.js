@@ -8,6 +8,8 @@ import {
   getBusById,
   updateBus,
   deleteBus,
+  updateBusByNtcRegNumber,
+  getBusByNtcRegNumber
 } from '../controllers/busController.js';
 
 // Defining the router
@@ -144,5 +146,9 @@ router.put('/:id', updateBus);
  *         description: Server error
  */
 router.delete('/:id', deleteBus);
+
+router.put('/:ntcRegNumber', updateBusByNtcRegNumber);
+
+router.get('/:ntcRegNumber', getBusByNtcRegNumber);
 
 export default router;

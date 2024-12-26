@@ -91,3 +91,17 @@ export const deleteRoute = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Get route by ID
+export const getRouteById = async (req, res) => {
+  const { routeId } = req.params;
+
+  try {
+    const route = await Route.findById(routeId);
+    if (!route) return res.status(404).json({ message: "Route not found" });
+
+    res.status(200).json(route);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

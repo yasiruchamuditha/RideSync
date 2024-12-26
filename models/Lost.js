@@ -13,6 +13,7 @@ const lostSchema = new mongoose.Schema(
     color: { type: String, required: true },
     type: { type: String, required: true },
     note: { type: String },
+    status: { type: String, default: 'pending' },
     photos: [{ type: String }], // Assuming photos are stored as URLs
   },
   { timestamps: true } // Automatically adds createdAt and updatedAt fields
