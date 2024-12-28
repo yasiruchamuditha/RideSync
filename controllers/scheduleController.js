@@ -2,7 +2,7 @@
 import Schedule from '../models/Schedule.js';
 import seatLayout from '../utils/seatLayout.js';
 import Bus from '../models/Bus.js';
-import Route from '../models/Routes.js';
+import Route from '../models/Route.js';
 
 // Create a new schedule
 export const createSchedule = async (req, res) => {
@@ -64,13 +64,14 @@ export const createSchedule = async (req, res) => {
 export const getAllSchedules = async (req, res) => {
   try {
     const schedules = await Schedule.find()
-    .populate('busId'); // Populates the busId field with Bus documents
-    // .populate('route'); // Populates the route field with Route documents
+      .populate('busId')         // Populates the busId field with Bus documents
+      .populate('route');        // Populates the route field with Route documents
     res.status(200).json(schedules);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 /**
  * Get schedule by ID

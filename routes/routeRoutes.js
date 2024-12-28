@@ -1,12 +1,5 @@
 import express from 'express';
-import {
-  addRoutes,
-  getAllRoutes,
-  addManualRoute,
-  updateRoute,
-  deleteRoute,
-  getRouteById,
-} from '../controllers/routeController.js';
+import { addRoutes,getAllRoutes,addManualRoute,updateRoute,deleteRoute,getRouteById,} from '../controllers/routeController.js';
 
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
 

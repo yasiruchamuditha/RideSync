@@ -1,4 +1,4 @@
-import Route from '../models/Routes.js';
+import Route from '../models/Route.js';
 
 // Add predefined routes
 export const addRoutes = async (req, res) => {
@@ -44,17 +44,12 @@ export const addManualRoute = async (req, res) => {
       return res.status(400).json({ message: 'Route number already exists' });
     }
 
-    const newRoute = new Route({
-      routeNumber,
-      routeName,
-      startCity,
-      endCity,
-      routeType,
-    });
+    const newRoute = new Route({ routeNumber, routeName, startCity, endCity, routeType });
 
     await newRoute.save();
     res.status(201).json({ message: 'Route added successfully', route: newRoute });
   } catch (error) {
+    console.error('Error adding manual route:', error);
     res.status(500).json({ error: error.message });
   }
 };
