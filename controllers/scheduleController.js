@@ -10,6 +10,7 @@ export const createSchedule = async (req, res) => {
     const {
       busId,
       busRouteType,
+      routeWay,
       route,
       startCity,
       departureDate,
@@ -37,6 +38,7 @@ export const createSchedule = async (req, res) => {
     const newSchedule = new Schedule({
       busId,
       busRouteType,
+      routeWay,
       route,
       startCity,
       departureDate: strippeddepDate,

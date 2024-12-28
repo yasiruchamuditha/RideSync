@@ -13,8 +13,13 @@ const ScheduleSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Route", 
     },
-    // Type of the bus route [Normal, Semi Luxury, Luxury, ExpressWay]
+    // Type of the bus route [Normal,Semi Luxury, Luxury]
     busRouteType: {                    
+        type: String,
+        required: true,
+    },
+    // Type of the bus route [NormalWay, ExpressWay]
+    routeWay:{
         type: String,
         required: true,
     },
