@@ -1,3 +1,4 @@
+//routes/ticketBookingRoutes.js
 import express from 'express';
 import { createTicketBooking, getAllTicketBookings, getTicketBookingById, updateTicketBookingById, deleteTicketBookingById } from '../controllers/TicketBookingController.js'; // Adjust the import path as necessary
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';

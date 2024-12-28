@@ -1,3 +1,4 @@
+//server.js
 import app from './app.js'; // Import the configured Express app
 import dotenv from 'dotenv'; // Import dotenv to load environment variables
 

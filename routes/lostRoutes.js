@@ -1,13 +1,6 @@
-//lostRoutes.js
+//routes/lostRoutes.js
 import express from 'express';
-import {
-  createLost,
-  getAllLost,
-  getLostById,
-  updateLostById,
-  deleteLostById,
-  upload
-} from '../controllers/lostController.js';
+import {createLost,getAllLost,getLostById,updateLostById,deleteLostById,upload } from '../controllers/lostController.js';
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();

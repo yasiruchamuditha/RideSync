@@ -1,3 +1,4 @@
+//controller/TicketBookingController.js
 import TicketBooking from '../models/TicketBooking.js'; // Adjust the import path as necessary
 import Schedule from '../models/Schedule.js'; // Adjust the import path as necessary
 import { v4 as uuidv4 } from 'uuid';

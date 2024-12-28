@@ -1,16 +1,8 @@
-//busRoutes.js
+//routes/busRoutes.js
 //Bus Routes for RIDESYNC
 import express from 'express';
 // Importing the busController
-import {
-  createBus,
-  getAllBuses,
-  getBusById,
-  updateBus,
-  deleteBus,
-  updateBusByNtcRegNumber,
-  getBusByNtcRegNumber
-} from '../controllers/busController.js';
+import { createBus,getAllBuses,getBusById,updateBus,deleteBus,updateBusByNtcRegNumber,getBusByNtcRegNumber } from '../controllers/busController.js';
 
 // Defining the router
 const router = express.Router();

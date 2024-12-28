@@ -1,61 +1,76 @@
+//models/Schedule.js
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const ScheduleSchema = new Schema({
-    busId: {                            // Id of the bus
+    // Id of the bus   
+    busId: {                      
         type: Schema.Types.ObjectId,
         ref: "Bus",
     },
-    route: {                            // Route of the bus
+    // Route of the bus
+    route: {                            
         type: Schema.Types.ObjectId,
-        ref: "Route",  // Changed to 'Route' to match the model in Routes.js
+        ref: "Route", 
     },
-    busRouteType: {                    // Type of the bus route [Normal, Semi Luxury, Luxury, ExpressWay]
+    // Type of the bus route [Normal, Semi Luxury, Luxury, ExpressWay]
+    busRouteType: {                    
         type: String,
         required: true,
     },
-    startCity: {                        // City where the bus starts its journey
+    // City where the bus starts its journey
+    startCity: {                       
         type: String,
         required: true,
     },
-    departureDate: {                            // Date of the schedule
+    // Date of the schedule
+    departureDate: {                           
         type: Date,
         required: true,
     },
-    departureTime: {                     // Time of the bus departure from the start city
+    // Time of the bus departure
+    departureTime: {                     
         type: String,
         required: true,
     },
-    endCity: {                         // City where the bus ends its journey
+    // City where the bus ends its journey
+    endCity: {                       
         type: String,
         required: true,
     },
-    arrivalTime: {                        //time of the bus arrival at the destination 
+    // Time of the bus arrival at the destination
+    arrivalTime: {                        
         type: String,
         required: true,
     },
-    arrivalDate: {                            //date of the schedule
+    // Date of the schedule
+    arrivalDate: {                         
         type: Date,
         required: true,
     },
-    estimatedTime: {                     //estimated time of the journey
+    // Estimated time of the journey
+    estimatedTime: {                     
         type: String,
         required: true,
     },
-    estimatedDistance: {                     //estimated distance of the journey
+    // Estimated distance of the journey
+    estimatedDistance: {                     
         type: String,
         required: true,
     },
-    ticketPrice: {                      //price of the ticket
+    // Price of the ticket
+    ticketPrice: {                      
         type: Number,
         required: true,
     },
-    availableSeats: {                   //number of available seats
+    // Number of available seats
+    availableSeats: {                   
         type: Number,
         default: 50,
         required: true,
     },
-    seatLayout: [                       //layout of the seats
+    // Layout of the seats
+    seatLayout: [                       
         {
             seatNumber: String,
             bookedBy: { type: Schema.Types.ObjectId, ref: "User", default: null },
