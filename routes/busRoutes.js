@@ -2,10 +2,11 @@
 //Bus Routes for RIDESYNC
 import express from 'express';
 // Importing the busController
-import { createBus,getAllBuses,getBusById,updateBus,deleteBus,updateBusByNtcRegNumber,getBusByNtcRegNumber } from '../controllers/busController.js';
+import { createBus,getAllBuses,getBusById,updateBus,deleteBus,updateBusByNtcRegNumber,getBusByNtcRegNumber,deleteBusByNtcRegNumber } from '../controllers/busController.js';
 
 // Defining the router
 const router = express.Router();
+import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
 
 // Swagger API Documentation
 /**
@@ -34,7 +35,7 @@ const router = express.Router();
  *       500:
  *         description: Server error
  */
-router.post('/', createBus);
+router.post('/',authenticate, createBus);
 
 // Get all buses
 /**
@@ -55,7 +56,7 @@ router.post('/', createBus);
  *       500:
  *         description: Server error
  */
-router.get('/', getAllBuses);
+router.get('/',authenticate, getAllBuses);
 
 // Get a bus by ID
 /**
@@ -83,7 +84,7 @@ router.get('/', getAllBuses);
  *       500:
  *         description: Server error
  */
-router.get('/:id', getBusById);
+router.get('/:id',authenticate, getBusById);
 
 // Update a bus Details
 /**
@@ -113,7 +114,7 @@ router.get('/:id', getBusById);
  *       500:
  *         description: Server error
  */
-router.put('/:id', updateBus);
+router.put('/:id',authenticate, updateBus);
 
 // Delete a bus Details
 /**
@@ -137,10 +138,15 @@ router.put('/:id', updateBus);
  *       500:
  *         description: Server error
  */
-router.delete('/:id', deleteBus);
+//router.delete('/:id',authenticate,authorizeRole(['admin']), deleteBus);
 
-router.put('/:ntcRegNumber', updateBusByNtcRegNumber);
+// Update a bus by NTC registration number
+router.put('/:ntcRegNumber',authenticate, updateBusByNtcRegNumber);
 
-router.get('/:ntcRegNumber', getBusByNtcRegNumber);
+// Get a bus by NTC registration number
+router.get('/:ntcRegNumber',authenticate, getBusByNtcRegNumber);
+
+// Delete a bus by NTC Registration Number
+router.delete('/:ntcRegNumber', authenticate, authorizeRole(['admin']), deleteBusByNtcRegNumber);
 
 export default router;
