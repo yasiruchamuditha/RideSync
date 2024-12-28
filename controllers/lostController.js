@@ -1,4 +1,4 @@
-//lostController.js
+//controller/lostController.js
 import Lost from '../models/Lost.js';
 import multer from 'multer';
 

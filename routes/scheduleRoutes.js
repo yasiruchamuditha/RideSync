@@ -1,13 +1,6 @@
-//scheduleRoutes.js
+//routes/scheduleRoutes.js
 import express from 'express';
-import {
-    createSchedule,
-    getAllSchedules,
-    getScheduleById,
-    updateScheduleById,
-    deleteScheduleById,
-    searchSchedules
-  } from '../controllers/scheduleController.js';
+import { createSchedule,getAllSchedules,getScheduleById,updateScheduleById,deleteScheduleById,searchSchedules } from '../controllers/scheduleController.js';
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
   
 

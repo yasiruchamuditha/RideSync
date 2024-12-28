@@ -1,5 +1,4 @@
-//busController.js
-// Load Bus model
+//controller/busController.js
 import Bus from'../models/Bus.js';
 
 // Create a new bus

@@ -1,4 +1,4 @@
-//authMiddleware.js
+//middleware/authMiddleware.js
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 

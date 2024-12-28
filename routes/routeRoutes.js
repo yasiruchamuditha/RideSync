@@ -1,3 +1,4 @@
+//routes/routeRoutes.js
 import express from 'express';
 import { addRoutes,getAllRoutes,addManualRoute,updateRoute,deleteRoute,getRouteById,} from '../controllers/routeController.js';
 

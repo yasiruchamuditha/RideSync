@@ -1,12 +1,6 @@
+//routes/foundRoutes.js
 import express from 'express';
-import {
-  createFound,
-  getAllFound,
-  getFoundById,
-  updateFoundById,
-  deleteFoundById,
-  upload
-} from '../controllers/foundController.js';
+import { createFound,getAllFound,getFoundById,updateFoundById,deleteFoundById,upload } from '../controllers/foundController.js';
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();

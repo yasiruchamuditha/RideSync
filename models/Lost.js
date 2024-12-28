@@ -1,4 +1,4 @@
-//Lost.js
+//models/Lost.js
 import mongoose from 'mongoose';
 
 const lostSchema = new mongoose.Schema(
