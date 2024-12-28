@@ -16,6 +16,7 @@ export const createBus = async (req, res) => {
       sector,
       route,
       routeNo,
+      operator,
     } = req.body;
 
     // Check if the bus already exists
@@ -29,6 +30,7 @@ export const createBus = async (req, res) => {
       sector,
       route,
       routeNo,
+      operator,
     });
 
     // Save the bus details
@@ -43,7 +45,9 @@ export const createBus = async (req, res) => {
 // Get all buses Details
 export const getAllBuses = async (req, res) => {
   try {// Fetch all the bus details from the database
-    const buses = await Bus.find();
+    const buses = await Bus.find()
+      .populate('operator', 'name');// Send the bus details as a response
+    // .populate('route', 'routeName')// Populate the route details
     res.status(200).json(buses);
   } catch (err) {// Catch any errors and send the error message
     res.status(500).json({ error: err.message });
