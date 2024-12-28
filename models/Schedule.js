@@ -1,6 +1,5 @@
-//models/schedule.js
 import mongoose from 'mongoose';
-import { Schema } from 'mongoose';
+const { Schema } = mongoose;
 
 const ScheduleSchema = new Schema({
     busId: {                            // Id of the bus
@@ -9,7 +8,7 @@ const ScheduleSchema = new Schema({
     },
     route: {                            // Route of the bus
         type: Schema.Types.ObjectId,
-        ref: "Routes",
+        ref: "Route",  // Changed to 'Route' to match the model in Routes.js
     },
     busRouteType: {                    // Type of the bus route [Normal, Semi Luxury, Luxury, ExpressWay]
         type: String,
