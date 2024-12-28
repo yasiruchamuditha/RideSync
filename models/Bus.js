@@ -34,7 +34,12 @@ const busSchema = new mongoose.Schema({
     type: String, 
     required: true, 
     trim: true 
-  }, // Bus type
+  }, // Bus type [Normal,Semi Luxury, Luxury]
+  sector: { 
+    type: String, 
+    required: true, 
+    trim: true 
+  }, // Bus sector [Government [CTB], Private]
   route: { 
     type: String, 
     required: true, 

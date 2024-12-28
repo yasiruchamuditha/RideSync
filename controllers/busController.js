@@ -1,5 +1,6 @@
 //controller/busController.js
 import Bus from'../models/Bus.js';
+import Route from'../models/Route.js';
 
 // Create a new bus
 export const createBus = async (req, res) => {
@@ -12,6 +13,7 @@ export const createBus = async (req, res) => {
       busNumber,
       capacity,
       busType,
+      sector,
       route,
       routeNo,
     } = req.body;
@@ -24,6 +26,7 @@ export const createBus = async (req, res) => {
       busNumber,
       capacity,
       busType,
+      sector,
       route,
       routeNo,
     });
@@ -108,5 +111,22 @@ export const updateBusByNtcRegNumber = async (req, res) => {
     res.status(200).json({ message: 'Bus updated successfully', bus: updatedBus });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+// Delete a bus by NTC Registration Number
+export const deleteBusByNtcRegNumber = async (req, res) => {
+  try {
+    const { ntcRegNumber } = req.params;
+    const bus = await Bus.findOneAndDelete({ ntcRegNumber });
+
+    if (!bus) {
+      return res.status(404).json({ message: 'Bus not found' });
+    }
+
+    res.status(200).json({ message: 'Bus deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting bus:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 };

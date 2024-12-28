@@ -1,6 +1,6 @@
 //routes/routeRoutes.js
 import express from 'express';
-import { addRoutes,getAllRoutes,addManualRoute,updateRoute,deleteRoute,getRouteById,} from '../controllers/routeController.js';
+import { addRoutes,getAllRoutes,addManualRoute,updateRoute,deleteRouteById,getRouteById,} from '../controllers/routeController.js';
 
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
 
@@ -22,6 +22,7 @@ router.get('/:id', authenticate,getRouteById);
 router.put('/update-route', authenticate, updateRoute);
 
 // Delete a route
-router.delete('/delete-route', authenticate, authorizeRole(['admin']), deleteRoute);
+router.delete('/:id', authenticate, authorizeRole(['admin']), deleteRouteById);
+
 
 export default router;

@@ -72,22 +72,6 @@ export const updateRoute = async (req, res) => {
   }
 };
 
-// Delete a route
-export const deleteRoute = async (req, res) => {
-  const { routeId } = req.body;
-
-  try {
-    const route = await Route.findByIdAndDelete(routeId);
-    if (!route) return res.status(404).json({ message: "Route not found" });
-
-    res.status(200).json({
-      message: "Route deleted successfully",
-    });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
 // Get route by ID
 export const getRouteById = async (req, res) => {
   const { routeId } = req.params;
@@ -99,5 +83,27 @@ export const getRouteById = async (req, res) => {
     res.status(200).json(route);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+// Delete route by ID with admin permissions
+export const deleteRouteById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const route = await Route.findById(id);
+
+    if (!route) {
+      return res.status(404).json({ message: 'Route not found' });
+    }
+
+    // Only admin can delete routes
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Access denied. Insufficient permissions.' });
+    }
+
+    await Route.deleteOne({ _id: id });
+    res.status(200).json({ message: 'Route deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
