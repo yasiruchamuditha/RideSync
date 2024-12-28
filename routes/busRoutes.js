@@ -1,14 +1,19 @@
-//routes/busRoutes.js
-//Bus Routes for RIDESYNC
+// routes/busRoutes.js
 import express from 'express';
-// Importing the busController
-import { createBus,getAllBuses,getBusById,updateBus,deleteBus,updateBusByNtcRegNumber,getBusByNtcRegNumber,deleteBusByNtcRegNumber } from '../controllers/busController.js';
-
-// Defining the router
-const router = express.Router();
+import {
+  createBus,
+  getAllBuses,
+  getBusById,
+  updateBus,
+  deleteBus,
+  updateBusByNtcRegNumber,
+  getBusByNtcRegNumber,
+  deleteBusByNtcRegNumber,
+} from '../controllers/busController.js';
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
 
-// Swagger API Documentation
+const router = express.Router();
+
 /**
  * @swagger
  * tags:
@@ -16,7 +21,6 @@ import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
  *   description: Bus management API for RIDESYNC
  */
 
-// Create a new bus
 /**
  * @swagger
  * /api/buses:
@@ -35,9 +39,8 @@ import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
  *       500:
  *         description: Server error
  */
-router.post('/',authenticate, createBus);
+router.post('/', authenticate, createBus);
 
-// Get all buses
 /**
  * @swagger
  * /api/buses:
@@ -46,7 +49,7 @@ router.post('/',authenticate, createBus);
  *     tags: [Buses]
  *     responses:
  *       200:
- *         description: List of all buses Details
+ *         description: List of all buses
  *         content:
  *           application/json:
  *             schema:
@@ -56,9 +59,8 @@ router.post('/',authenticate, createBus);
  *       500:
  *         description: Server error
  */
-router.get('/',authenticate, getAllBuses);
+router.get('/', authenticate, getAllBuses);
 
-// Get a bus by ID
 /**
  * @swagger
  * /api/buses/{id}:
@@ -84,14 +86,13 @@ router.get('/',authenticate, getAllBuses);
  *       500:
  *         description: Server error
  */
-router.get('/:id',authenticate, getBusById);
+router.get('/:id', authenticate, getBusById);
 
-// Update a bus Details
 /**
  * @swagger
  * /api/buses/{id}:
  *   put:
- *     summary: Update a bus
+ *     summary: Update a bus by ID
  *     tags: [Buses]
  *     parameters:
  *       - in: path
@@ -114,14 +115,13 @@ router.get('/:id',authenticate, getBusById);
  *       500:
  *         description: Server error
  */
-router.put('/:id',authenticate, updateBus);
+router.put('/:id', authenticate, updateBus);
 
-// Delete a bus Details
 /**
  * @swagger
  * /api/buses/{id}:
  *   delete:
- *     summary: Delete a bus
+ *     summary: Delete a bus by ID
  *     tags: [Buses]
  *     parameters:
  *       - in: path
@@ -138,15 +138,85 @@ router.put('/:id',authenticate, updateBus);
  *       500:
  *         description: Server error
  */
-//router.delete('/:id',authenticate,authorizeRole(['admin']), deleteBus);
+router.delete('/:id', authenticate, authorizeRole(['admin']), deleteBus);
 
-// Update a bus by NTC registration number
-router.put('/:ntcRegNumber',authenticate, updateBusByNtcRegNumber);
+/**
+ * @swagger
+ * /api/buses/ntc/{ntcRegNumber}:
+ *   put:
+ *     summary: Update a bus by NTC registration number
+ *     tags: [Buses]
+ *     parameters:
+ *       - in: path
+ *         name: ntcRegNumber
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The NTC registration number
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Bus'
+ *     responses:
+ *       200:
+ *         description: Bus updated successfully
+ *       404:
+ *         description: Bus not found
+ *       500:
+ *         description: Server error
+ */
+router.put('/ntc/:ntcRegNumber', authenticate, updateBusByNtcRegNumber);
 
-// Get a bus by NTC registration number
-router.get('/:ntcRegNumber',authenticate, getBusByNtcRegNumber);
+/**
+ * @swagger
+ * /api/buses/ntc/{ntcRegNumber}:
+ *   get:
+ *     summary: Get a bus by NTC registration number
+ *     tags: [Buses]
+ *     parameters:
+ *       - in: path
+ *         name: ntcRegNumber
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The NTC registration number
+ *     responses:
+ *       200:
+ *         description: Bus details by NTC registration number
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Bus'
+ *       404:
+ *         description: Bus not found
+ *       500:
+ *         description: Server error
+ */
+router.get('/ntc/:ntcRegNumber', authenticate, getBusByNtcRegNumber);
 
-// Delete a bus by NTC Registration Number
-router.delete('/:ntcRegNumber', authenticate, authorizeRole(['admin']), deleteBusByNtcRegNumber);
+/**
+ * @swagger
+ * /api/buses/ntc/{ntcRegNumber}:
+ *   delete:
+ *     summary: Delete a bus by NTC registration number
+ *     tags: [Buses]
+ *     parameters:
+ *       - in: path
+ *         name: ntcRegNumber
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The NTC registration number
+ *     responses:
+ *       200:
+ *         description: Bus deleted successfully
+ *       404:
+ *         description: Bus not found
+ *       500:
+ *         description: Server error
+ */
+router.delete('/ntc/:ntcRegNumber', authenticate, authorizeRole(['admin']), deleteBusByNtcRegNumber);
 
 export default router;

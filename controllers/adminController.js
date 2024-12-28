@@ -11,6 +11,16 @@ export const getAllUsers = async (req, res) => {
     }
 };
 
+// Get all users with role 'operator' (Admin-only)
+export const getAllOperators = async (req, res) => {
+    try {
+        const operators = await User.find({ role: 'operator' });
+        res.status(200).json(operators);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching operators', error: error.message });
+    }
+};
+
 // Get a user by ID (Admin-only)
 export const getUserById = async (req, res) => {
     const { id } = req.params;
