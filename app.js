@@ -11,7 +11,8 @@ import scheduleRoutes from './routes/scheduleRoutes.js'; // Import the scheduleR
 import routeRoutes from './routes/routeRoutes.js'; // Import the routeRoutes
 import foundRoutes from './routes/foundRoutes.js'; // Import the foundRoutes
 import lostRoutes from './routes/lostRoutes.js'; // Import the lostRoutes
-
+import swaggerUi from 'swagger-ui-express'; // Import swaggerUi
+import setupSwagger from './config/swaggerConfig.js'; // Adjust path if needed
 
 // Load environment variables BEFORE using them
 dotenv.config();
@@ -27,6 +28,9 @@ connectDB();
 
 // Create an Express app
 const app = express();
+
+// Swagger UI setup
+setupSwagger(app);
 
 // Enable CORS for your frontend application
 app.use(cors({
