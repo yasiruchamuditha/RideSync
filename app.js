@@ -11,6 +11,7 @@ import scheduleRoutes from './routes/scheduleRoutes.js'; // Import the scheduleR
 import routeRoutes from './routes/routeRoutes.js'; // Import the routeRoutes
 import foundRoutes from './routes/foundRoutes.js'; // Import the foundRoutes
 import lostRoutes from './routes/lostRoutes.js'; // Import the lostRoutes
+import bookingRoutes from './routes/ticketBookingRoutes.js'; // Import the bookingRoutes
 import swaggerUi from 'swagger-ui-express'; // Import swaggerUi
 import setupSwagger from './config/swaggerConfig.js'; // Adjust path if needed
 
@@ -52,6 +53,7 @@ app.use('/api/schedules', scheduleRoutes); // Schedule routes (get schedules, cr
 app.use('/api/routes', routeRoutes); // Route routes (get routes, create route)
 app.use('/api/found', foundRoutes); // Found item routes
 app.use('/api/lost', lostRoutes);// Lost item routes
+app.use('/api/booking', bookingRoutes);// Ticket booking routes
 app.use('/uploads', express.static('uploads')); // Serve uploaded files as static assets
 
 // Export the app for use in server.js

@@ -1,6 +1,6 @@
 //models/TicketBooking.js
 import mongoose from "mongoose";
-const { Schema } = "mongoose";
+const { Schema } = mongoose;
 
 const TicketBookingSchema = new Schema({
   userId: {

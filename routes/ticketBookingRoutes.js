@@ -1,23 +1,28 @@
-//routes/ticketBookingRoutes.js
 import express from 'express';
-import { createTicketBooking, getAllTicketBookings, getTicketBookingById, updateTicketBookingById, deleteTicketBookingById } from '../controllers/TicketBookingController.js'; // Adjust the import path as necessary
+import { 
+  createTicketBooking, 
+  getAllTicketBookings, 
+  getTicketBookingById, 
+  updateTicketBookingById, 
+  deleteTicketBookingById 
+} from '../controllers/TicketBookingController.js'; 
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
 // Create a new booking
-router.post('/', createTicketBooking, authenticate, authorizeRole(['commuter']));
+router.post('/', authenticate, createTicketBooking);
 
 // Get all bookings
-router.get('/', getAllTicketBookings,authenticate, authorizeRole(['admin']));
+router.get('/', authenticate, authorizeRole(['admin']), getAllTicketBookings);
 
 // Get booking by ID
-router.get('/:id', getTicketBookingById, authenticate, authorizeRole(['admin']));
+router.get('/:id', authenticate, authorizeRole(['admin']), getTicketBookingById);
 
 // Update booking by ID
-router.put('/:id', updateTicketBookingById, authenticate, authorizeRole(['admin']));
+router.put('/:id', authenticate, authorizeRole(['admin']), updateTicketBookingById);
 
 // Delete booking by ID
-router.delete('/:id', deleteTicketBookingById, authenticate, authorizeRole(['admin']));
+router.delete('/:id', authenticate, authorizeRole(['admin']), deleteTicketBookingById);
 
 export default router;

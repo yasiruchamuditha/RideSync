@@ -1,6 +1,6 @@
 //routes/scheduleRoutes.js
 import express from 'express';
-import { createSchedule,getAllSchedules,getScheduleById,updateScheduleById,deleteScheduleById,searchSchedules } from '../controllers/scheduleController.js';
+import { createSchedule,getAllSchedules,getScheduleById,updateScheduleById,deleteScheduleById,searchSchedules,getSeatLayoutByScheduleId } from '../controllers/scheduleController.js';
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
   
 
@@ -23,5 +23,8 @@ router.delete('/:id', authenticate, authorizeRole(['admin']), deleteScheduleById
 
 // Search schedules by start city, end city, and date
 router.post('/search', authenticate, searchSchedules);
+
+// Get seat layout by schedule ID
+router.get('/:id/seats', authenticate, getSeatLayoutByScheduleId);
 
 export default router;
