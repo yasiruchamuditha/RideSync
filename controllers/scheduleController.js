@@ -164,3 +164,17 @@ export const getSeatLayoutByScheduleId = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// Search schedules by bus NTC registration number and departure date
+export const searchSchedulesByBusNtc = async (req, res) => {
+  const { busNtcRegNumber, departureDate } = req.query;
+  try {
+    const schedules = await Schedule.find({
+      busNtcRegNumber,
+      departureDate: new Date(departureDate),
+    }).populate('busId route');
+    res.json(schedules);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
