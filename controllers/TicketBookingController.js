@@ -1,6 +1,6 @@
 //controller/TicketBookingController.js
-import TicketBooking from '../models/TicketBooking.js'; // Adjust the import path as necessary
-import Schedule from '../models/Schedule.js'; // Adjust the import path as necessary
+import TicketBooking from '../models/TicketBooking.js';
+import Schedule from '../models/Schedule.js';
 import { v4 as uuidv4 } from 'uuid';
 
 // Create a new booking
@@ -60,8 +60,8 @@ export const createTicketBooking = async (req, res) => {
 // Get all bookings
 export const getAllTicketBookings = async (req, res) => {
     try {
-        const Ticketbookings = await TicketBooking.find().populate('userId').populate('scheduleId');
-        res.status(200).json(Ticketbookings);
+        const ticketBookings = await TicketBooking.find().populate('userId').populate('scheduleId');
+        res.status(200).json(ticketBookings);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching Ticket bookings', error: error.message });
     }
@@ -70,11 +70,11 @@ export const getAllTicketBookings = async (req, res) => {
 // Get booking by ID
 export const getTicketBookingById = async (req, res) => {
     try {
-        const Ticketbooking = await TicketBooking.findById(req.params.id).populate('userId').populate('scheduleId');
-        if (!Ticketbooking) {
+        const ticketBooking = await TicketBooking.findById(req.params.id).populate('userId').populate('scheduleId');
+        if (!ticketBooking) {
             return res.status(404).json({ message: 'Ticket Booking not found' });
         }
-        res.status(200).json(Ticketbooking);
+        res.status(200).json(ticketBooking);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching Ticket booking', error: error.message });
     }
@@ -87,7 +87,6 @@ export const updateTicketBookingById = async (req, res) => {
         if (!updatedTicketBooking) {
             return res.status(404).json({ message: 'Ticket Booking not found' });
         }
-        // The booking object in the response contains the updated booking details
         res.status(200).json({ message: 'Ticket Booking updated successfully', booking: updatedTicketBooking });
     } catch (error) {
         res.status(500).json({ message: 'Error updating Ticket booking', error: error.message });
