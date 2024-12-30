@@ -165,16 +165,42 @@ export const getSeatLayoutByScheduleId = async (req, res) => {
   }
 };
 
-// Search schedules by bus NTC registration number and departure date
-export const searchSchedulesByBusNtc = async (req, res) => {
-  const { busNtcRegNumber, departureDate } = req.query;
+
+// Search schedules by bus ID and departure date
+export const searchSchedulesByBusIdAndDate = async (req, res) => {
+  const { busId, departureDate } = req.body;
+
+  // Validate input
+  if (!busId || !departureDate) {
+    return res.status(400).json({ message: 'Invalid input: busId and departureDate are required.' });
+  }
+
   try {
+    // Validate busId
+    // if (!mongoose.Types.ObjectId.isValid(busId)) {
+    //   return res.status(400).json({ message: 'Invalid busId format.' });
+    // }
+
+    // Validate date
+    // const date = new Date(departureDate);
+    // if (isNaN(date.getTime())) {
+    //   return res.status(400).json({ message: 'Invalid departureDate format.' });
+    // }
+
+    // Fetch schedules from the database
+    // const schedules = await Schedule.find({
+    //   busId: mongoose.Types.ObjectId(busId), // Convert to ObjectId
+    //   departureDate: date, // Ensure date is valid
+    // }).populate('busId');
+
     const schedules = await Schedule.find({
-      busNtcRegNumber,
-      departureDate: new Date(departureDate),
-    }).populate('busId route');
+      busId,
+      departureDate: new Date(departureDate).setUTCHours(0, 0, 0, 0) // Match only the date part
+    }).populate('busId').populate('route');
+
     res.json(schedules);
   } catch (error) {
+    console.error('Error fetching schedules:', error.message);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
