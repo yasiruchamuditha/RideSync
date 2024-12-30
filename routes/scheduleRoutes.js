@@ -231,27 +231,28 @@ router.post('/search', authenticate, searchSchedules);
  */
 router.get('/:id/seats', authenticate, getSeatLayoutByScheduleId);
 
-
 /**
  * @swagger
  * /api/schedules/searchbus:
- *   get:
+ *   post:
  *     summary: Search schedules by bus NTC registration number and departure date
  *     tags: [Schedules]
- *     parameters:
- *       - in: query
- *         name: busNtc
- *         schema:
- *           type: string
- *         required: true
- *         description: The bus NTC registration number
- *       - in: query
- *         name: departureDate
- *         schema:
- *           type: string
- *           format: date
- *         required: true
- *         description: The departure date of the schedule
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               busId:
+ *                 type: string
+ *                 description: The ID of the bus
+ *                 example: "5f8d0d55b54764421b7156c7"
+ *               departureDate:
+ *                 type: string
+ *                 format: date
+ *                 description: The departure date (YYYY-MM-DD)
+ *                 example: "2024-12-30"
  *     responses:
  *       200:
  *         description: List of schedules matching the search criteria
@@ -260,12 +261,57 @@ router.get('/:id/seats', authenticate, getSeatLayoutByScheduleId);
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Schedule'
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     description: The schedule ID
+ *                     example: "5f8d0d55b54764421b7156c8"
+ *                   busId:
+ *                     type: object
+ *                     description: The bus details
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                         description: The bus ID
+ *                         example: "5f8d0d55b54764421b7156c7"
+ *                       ntcRegNumber:
+ *                         type: string
+ *                         description: The NTC registration number of the bus
+ *                         example: "NTC12345"
+ *                   route:
+ *                     type: object
+ *                     description: The route details
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                         description: The route ID
+ *                         example: "5f8d0d55b54764421b7156c9"
+ *                       routeName:
+ *                         type: string
+ *                         description: The name of the route
+ *                         example: "Route 101"
+ *                   departureDate:
+ *                     type: string
+ *                     format: date
+ *                     description: The departure date
+ *                     example: "2024-12-30"
+ *                   departureTime:
+ *                     type: string
+ *                     description: The departure time
+ *                     example: "08:00 AM"
+ *                   arrivalTime:
+ *                     type: string
+ *                     description: The arrival time
+ *                     example: "10:00 AM"
+ *       400:
+ *         description: Invalid input
  *       401:
  *         description: Unauthorized
  *       500:
  *         description: Server error
  */
+
 // Search schedules by bus NTC registration number and departure date
 router.post('/searchbus', authenticate, searchSchedulesByBusIdAndDate);
 
