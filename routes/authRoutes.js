@@ -43,6 +43,10 @@ const router = express.Router();
  *                 type: string
  *                 description: The role of the user
  *                 example: commuter
+ *               nic:
+ *                 type: string
+ *                 description: The NIC number of the user
+ *                 example: '1234567890V'
  *     responses:
  *       201:
  *         description: User registered successfully
