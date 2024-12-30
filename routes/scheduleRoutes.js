@@ -1,5 +1,5 @@
 import express from 'express';
-import { createSchedule, getAllSchedules, getScheduleById, updateScheduleById, deleteScheduleById, searchSchedules, getSeatLayoutByScheduleId,searchSchedulesByBusNtc } from '../controllers/scheduleController.js';
+import { createSchedule, getAllSchedules, getScheduleById, updateScheduleById, deleteScheduleById, searchSchedules, getSeatLayoutByScheduleId,searchSchedulesByBusIdAndDate } from '../controllers/scheduleController.js';
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
@@ -267,6 +267,6 @@ router.get('/:id/seats', authenticate, getSeatLayoutByScheduleId);
  *         description: Server error
  */
 // Search schedules by bus NTC registration number and departure date
-router.get('/searchbus', authenticate, searchSchedulesByBusNtc);
+router.post('/searchbus', authenticate, searchSchedulesByBusIdAndDate);
 
 export default router;
