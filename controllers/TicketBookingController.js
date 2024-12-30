@@ -170,15 +170,21 @@ export const deleteTicketBookingById = async (req, res) => {
 // Get bookings by user ID
 export const getBookingsByUserId = async (req, res) => {
     try {
-      const userId = req.user._id; // Assuming user ID is stored in req.user._id after authentication
-      const ticketBookings = await TicketBooking.find({ userId }).populate('scheduleId');
+      const userId = req.params.userId;
+      const bookings = await TicketBooking.find({ userId }).populate({
+        path: 'scheduleId',
+        populate: {
+          path: 'route',
+          model: 'Route'
+        }
+      });
   
-      if (!ticketBookings.length) {
+      if (!bookings.length) {
         return res.status(404).json({ message: 'No bookings found for this user' });
       }
   
-      res.status(200).json(ticketBookings);
+      res.status(200).json(bookings);
     } catch (error) {
-      res.status(500).json({ message: 'Error fetching Ticket bookings', error: error.message });
+      res.status(500).json({ message: 'Error fetching bookings', error: error.message });
     }
   };

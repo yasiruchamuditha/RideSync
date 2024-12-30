@@ -167,24 +167,31 @@ router.delete('/:id', authenticate, authorizeRole(['admin']), deleteTicketBookin
 
 /**
  * @swagger
- * /user:
+ * /user/{userId}:
  *   get:
  *     summary: Get bookings by user ID
  *     tags: [TicketBookings]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
- *         description: List of bookings for the current user
+ *         description: List of bookings for the user
+ *       400:
+ *         description: Bad request
  *       401:
  *         description: Unauthorized
  *       403:
  *         description: Forbidden
  *       404:
- *         description: No bookings found
+ *         description: User or bookings not found
  */
-
 // Get bookings by user ID
-router.get('/user', authenticate, getBookingsByUserId);
+router.get('/user/:userId', authenticate, getBookingsByUserId);
 
 export default router;
