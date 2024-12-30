@@ -27,7 +27,7 @@ const routeSchema = new Schema({
   },
   routeType: {
     type: String,
-    enum: ['Normalway', 'Expressway'],
+    enum: ['NormalWay', 'ExpressWay'],
     required: true,
   },
 }, { timestamps: true });
