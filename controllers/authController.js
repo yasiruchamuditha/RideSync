@@ -10,7 +10,7 @@ const generateToken = (id, role) => {
 
 // Signup - Create a new user
 export const signup = async (req, res) => {
-  const { name, email, password, role, mobile } = req.body;
+  const { name, email, password, role, mobile ,nic } = req.body;
 
   try {
     // Check if user already exists
@@ -27,11 +27,12 @@ export const signup = async (req, res) => {
       password: hashedPassword,
       role,
       mobile,
+      nic,
     });
 
     res.status(201).json({
       message: 'User registered successfully',
-      user: { id: user._id, name: user.name, role: user.role, email: user.email },
+      user: { id: user._id, name: user.name, role: user.role, email: user.email , mobile: user.mobile, nic: user.nic},
     });
   } catch (error) {
     res.status(500).json({ message: 'Error registering user', error: error.message });
@@ -56,7 +57,7 @@ export const login = async (req, res) => {
     res.status(200).json({
       message: 'Login successful',
       token,
-      user: { id: user._id, name: user.name, role: user.role, email: user.email },
+      user: { id: user._id, name: user.name, role: user.role, email: user.email , mobile: user.mobile, nic: user.nic},
     });
   } catch (error) {
     res.status(500).json({ message: 'Error logging in', error: error.message });
