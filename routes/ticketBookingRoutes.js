@@ -68,7 +68,7 @@ router.post('/', authenticate, createTicketBooking);
  */
 
 // Get all bookings
-router.get('/', authenticate, authorizeRole(['admin']), getAllTicketBookings);
+router.get('/', authenticate, authorizeRole(['admin','operator']), getAllTicketBookings);
 
 /**
  * @swagger
@@ -163,7 +163,7 @@ router.put('/:id', authenticate, authorizeRole(['admin']), updateTicketBookingBy
  */
 
 // Delete booking by ID
-router.delete('/:id', authenticate, authorizeRole(['admin']), deleteTicketBookingById);
+router.delete('/:id', authenticate, authorizeRole(['admin','operator']), deleteTicketBookingById);
 
 /**
  * @swagger
