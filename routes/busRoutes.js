@@ -12,7 +12,7 @@ import {
 } from '../controllers/busController.js';
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
 
-const router = express.Router();
+export const router = express.Router();
 
 /**
  * @swagger

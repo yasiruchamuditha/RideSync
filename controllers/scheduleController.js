@@ -176,23 +176,7 @@ export const searchSchedulesByBusIdAndDate = async (req, res) => {
   }
 
   try {
-    // Validate busId
-    // if (!mongoose.Types.ObjectId.isValid(busId)) {
-    //   return res.status(400).json({ message: 'Invalid busId format.' });
-    // }
-
-    // Validate date
-    // const date = new Date(departureDate);
-    // if (isNaN(date.getTime())) {
-    //   return res.status(400).json({ message: 'Invalid departureDate format.' });
-    // }
-
-    // Fetch schedules from the database
-    // const schedules = await Schedule.find({
-    //   busId: mongoose.Types.ObjectId(busId), // Convert to ObjectId
-    //   departureDate: date, // Ensure date is valid
-    // }).populate('busId');
-
+    // Find schedules that match the bus ID and departure
     const schedules = await Schedule.find({
       busId,
       departureDate: new Date(departureDate).setUTCHours(0, 0, 0, 0) // Match only the date part
