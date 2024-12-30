@@ -1,5 +1,5 @@
 import express from 'express';
-import { searchSchedulesByBusIdAndDate } from '../controllers/scheduleController.js';
+import { searchSchedulesByBusIdAndDate,createSchedule } from '../controllers/scheduleController.js';
 import { authenticate, authorizeRole } from '../middlewares/authMiddleware.js';
 import { getBusByNtcRegNumber } from '../controllers/busController.js';
 
@@ -113,5 +113,7 @@ router.post('/searchbus', authenticate, searchSchedulesByBusIdAndDate);
  *         description: Server error
  */
 router.get('/ntc/:ntcRegNumber', authenticate, getBusByNtcRegNumber);
+
+router.post('/schedules', authenticate, authorizeRole(['operator']), createSchedule);
 
 export default router;
