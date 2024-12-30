@@ -119,7 +119,7 @@ export const createTicketBooking = async (req, res) => {
 export const getAllTicketBookings = async (req, res) => {
     try {
         const ticketBookings = await TicketBooking.find()
-             .populate('userId');// Populate userId with only the name field
+            .populate('userId');// Populate userId with only the name field
             // .populate('scheduleId'); // Populate scheduleId with only the details field
 
         res.status(200).json(ticketBookings);
