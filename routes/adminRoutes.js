@@ -57,7 +57,7 @@ router.get('/users', authenticate, authorizeRole(['admin']), getAllUsers);
  *       500:
  *         description: Server error
  */
-router.get('/operators', authenticate, authorizeRole(['admin']), getAllOperators);
+router.get('/operators', authenticate, authorizeRole(['admin','operator']), getAllOperators);
 
 /**
  * @swagger
