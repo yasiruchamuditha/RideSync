@@ -37,6 +37,7 @@ const swaggerDefinition = {
           password: { type: 'string', description: 'User password' },
           role: { type: 'string', description: 'User role', enum: ['admin', 'operator', 'commuter'] },
           mobile: { type: 'string', description: 'User mobile number' },
+          nic: { type: 'string', description: 'User NIC number' },
         },
       },
       Route: {

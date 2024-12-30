@@ -1,6 +1,7 @@
 //controller/TicketBookingController.js
 import TicketBooking from '../models/TicketBooking.js';
 import Schedule from '../models/Schedule.js';
+import User from '../models/User.js';
 import { v4 as uuidv4 } from 'uuid';
 
 // Create a new booking
@@ -117,7 +118,10 @@ export const createTicketBooking = async (req, res) => {
 // Get all bookings
 export const getAllTicketBookings = async (req, res) => {
     try {
-        const ticketBookings = await TicketBooking.find().populate('userId').populate('scheduleId');
+        const ticketBookings = await TicketBooking.find();
+            // .populate('userId');// Populate userId with only the name field
+            // .populate('scheduleId', '_id'); // Populate scheduleId with only the details field
+
         res.status(200).json(ticketBookings);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching Ticket bookings', error: error.message });
@@ -162,3 +166,19 @@ export const deleteTicketBookingById = async (req, res) => {
         res.status(500).json({ message: 'Error deleting Ticket booking', error: error.message });
     }
 };
+
+// Get bookings by user ID
+export const getBookingsByUserId = async (req, res) => {
+    try {
+      const userId = req.user._id; // Assuming user ID is stored in req.user._id after authentication
+      const ticketBookings = await TicketBooking.find({ userId }).populate('scheduleId');
+  
+      if (!ticketBookings.length) {
+        return res.status(404).json({ message: 'No bookings found for this user' });
+      }
+  
+      res.status(200).json(ticketBookings);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching Ticket bookings', error: error.message });
+    }
+  };

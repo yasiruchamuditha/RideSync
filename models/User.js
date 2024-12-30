@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema(
       type: String, 
       required: true 
     },
+    nic: { 
+      type: String, 
+      required: true 
+    },
   },
   { timestamps: true } // Automatically adds createdAt and updatedAt fields
 );
