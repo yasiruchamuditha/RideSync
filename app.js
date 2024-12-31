@@ -37,10 +37,11 @@ setupSwagger(app);
 
 // Enable CORS for your frontend application
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow requests from your frontend's URL
-  methods: [ 'GET', 'POST','PUT', 'DELETE'], // Allow only GET and POST methods
+  origin: ['http://localhost:3000', 'https://bus-ride-sync.vercel.app'], // Allow requests from both URLs
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow GET, POST, PUT, and DELETE methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
 }));
+
 
 // Use middlewares
 app.use(express.json()); // Handle JSON data
