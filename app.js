@@ -1,4 +1,3 @@
-//app.js
 import dotenv from 'dotenv'; // Import the dotenv module
 import express from 'express'; // Import the express module
 import cookieParser from 'cookie-parser'; // Import the cookie-parser module
@@ -15,12 +14,12 @@ import foundRoutes from './routes/foundRoutes.js'; // Import the foundRoutes
 import lostRoutes from './routes/lostRoutes.js'; // Import the lostRoutes
 import bookingRoutes from './routes/ticketBookingRoutes.js'; // Import the bookingRoutes
 import swaggerUi from 'swagger-ui-express'; // Import swaggerUi
-import setupSwagger from './config/swaggerConfig.js'; // Adjust path if needed
+import setupSwagger from './config/swaggerConfig.js'; // Swagger configuration function
 
 // Load environment variables BEFORE using them
 dotenv.config();
 
-// Check if MONGO_URI is defined
+// Check if essential environment variables are defined
 if (!process.env.MONGO_URI) {
   console.error('MONGO_URI is not defined. Check your .env file.');
   process.exit(1);
@@ -32,34 +31,49 @@ connectDB();
 // Create an Express app
 const app = express();
 
+// Enable CORS for your frontend application
+const allowedOrigins = ['http://localhost:3000', 'https://bus-ride-sync.vercel.app'];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or Postman)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
+    credentials: true, // Allow cookies and credentials
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
+  })
+);
+
+// Middleware
+app.use(express.json()); // Handle JSON data
+app.use(cookieParser()); // Handle cookies
+app.use('/uploads', express.static('uploads')); // Serve uploaded files as static assets
+
 // Swagger UI setup
 setupSwagger(app);
 
-// Enable CORS for your frontend application
-app.use(cors({
-  origin: ['http://localhost:3000', 'https://bus-ride-sync.vercel.app'], // Allow requests from both URLs
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow GET, POST, PUT, and DELETE methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
-}));
-
-
-// Use middlewares
-app.use(express.json()); // Handle JSON data
-app.use(cookieParser()); // Handle cookies
-app.use(cors()); // Enable CORS
-
-// Use routes
+// Routes
 app.use('/api/buses', busRoutes);
 app.use('/api/auth', authRoutes); // Public routes (signup, login)
-app.use('/api/admin', adminRoutes); // Admin routes (get users, delete user)
-app.use('/api/operator', operatorRoutes); // Admin routes (get users, delete user)
-app.use('/api/commuter', commuterRoutes); // Admin routes (get users, delete user)
-app.use('/api/schedules', scheduleRoutes); // Schedule routes (get schedules, create schedule)
-app.use('/api/routes', routeRoutes); // Route routes (get routes, create route)
+app.use('/api/admin', adminRoutes); // Admin routes
+app.use('/api/operator', operatorRoutes); // Operator routes
+app.use('/api/commuter', commuterRoutes); // Commuter routes
+app.use('/api/schedules', scheduleRoutes); // Schedule routes
+app.use('/api/routes', routeRoutes); // Route routes
 app.use('/api/found', foundRoutes); // Found item routes
-app.use('/api/lost', lostRoutes);// Lost item routes
-app.use('/api/booking', bookingRoutes);// Ticket booking routes
-app.use('/uploads', express.static('uploads')); // Serve uploaded files as static assets
+app.use('/api/lost', lostRoutes); // Lost item routes
+app.use('/api/booking', bookingRoutes); // Ticket booking routes
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.message);
+  res.status(err.status || 500).json({ message: err.message || 'Internal Server Error' });
+});
 
 // Export the app for use in server.js
 export default app;
