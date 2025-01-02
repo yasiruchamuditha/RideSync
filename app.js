@@ -48,15 +48,38 @@ const app = express();
 //     allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
 //   })
 // );
-// Enable CORS for your frontend application
-app.use(
-  cors({
-    origin: '*', // Allow all origins
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  })
-);
+
+// // Enable CORS for your frontend application
+// app.use(
+//   cors({
+//     origin: '*', // Allow all origins
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     credentials: true,
+//     allowedHeaders: ['Content-Type', 'Authorization'],
+//   })
+// );
+
+// List of allowed origins
+const allowedOrigins = [
+  'http://localhost:3000', // Local development
+  'https://bus-ride-sync.vercel.app', // Production frontend
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      // Allow requests with no origin (like Postman or mobile apps)
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+// Apply CORS middleware with the configuration
+app.use(cors(corsOptions));
 
 // Middleware
 app.use(express.json()); // Handle JSON data
