@@ -51,9 +51,17 @@ const app = express();
 // );
 
 // app.use(cors()); // Enable CORS
-
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://bus-ride-sync.vercel.app'); // Override any defaults
+  const allowedOrigins = ['https://bus-ride-sync.vercel.app'];
+  const origin = req.headers.origin;
+
+  if (origin && !allowedOrigins.includes(origin)) {
+    // Block localhost:3000 or any other unallowed origin
+    return res.status(403).json({ message: 'CORS policy: Origin not allowed' });
+  }
+
+  // Set CORS headers for allowed origins
+  res.header('Access-Control-Allow-Origin', origin);
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Credentials', 'true');
