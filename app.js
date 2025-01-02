@@ -31,29 +31,21 @@ connectDB();
 // Create an Express app
 const app = express();
 
-// List of allowed origins
-const allowedOrigins = [
-  'http://localhost:3000', // Local development
-  'https://bus-ride-sync.vercel.app', // Production frontend
-  'https://ridesync.yasiru.site', // Production frontend
-];
-
-const corsOptions = {
-  origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or Postman)
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
-  credentials: true, // Allow cookies and credentials
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
-};
-
 // Enable CORS for your frontend application
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3000',
+      'https://bus-ride-sync.vercel.app',
+      'https://ridesync.yasiru.site', // Added this
+    ],
+    methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'], // Allow specific HTTP methods
+    credentials: true, // Allow cookies and credentials
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
+  })
+);
+
+// app.use(cors()); // Enable CORS
 
 // Middleware
 app.use(express.json()); // Handle JSON data
