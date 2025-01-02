@@ -51,10 +51,10 @@ const app = express();
 // Enable CORS for your frontend application
 app.use(
   cors({
-    origin: true, // Allow all origins
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
-    credentials: true, // Allow cookies and credentials
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
+    origin: '*', // Allow all origins
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
