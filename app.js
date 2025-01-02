@@ -31,34 +31,6 @@ connectDB();
 // Create an Express app
 const app = express();
 
-// Enable CORS for your frontend application
-// const allowedOrigins = ['http://localhost:3000', 'https://bus-ride-sync.vercel.app'];
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       // Allow requests with no origin (like mobile apps or Postman)
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error('Not allowed by CORS'));
-//       }
-//     },
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
-//     credentials: true, // Allow cookies and credentials
-//     allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
-//   })
-// );
-
-// // Enable CORS for your frontend application
-// app.use(
-//   cors({
-//     origin: '*', // Allow all origins
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//     credentials: true,
-//     allowedHeaders: ['Content-Type', 'Authorization'],
-//   })
-// );
-
 // List of allowed origins
 const allowedOrigins = [
   'http://localhost:3000', // Local development
@@ -67,18 +39,19 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
-      // Allow requests with no origin (like Postman or mobile apps)
+    // Allow requests with no origin (like mobile apps or Postman)
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
+  credentials: true, // Allow cookies and credentials
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
 };
 
-// Apply CORS middleware with the configuration
+// Enable CORS for your frontend application
 app.use(cors(corsOptions));
 
 // Middleware
