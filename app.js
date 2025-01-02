@@ -61,7 +61,7 @@ const app = express();
 
 // List of allowed origins
 const allowedOrigins = [
-  // 'http://localhost:3000', // Local development
+  'http://localhost:3000', // Local development
   'https://bus-ride-sync.vercel.app', // Production frontend
 ];
 
