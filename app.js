@@ -35,6 +35,7 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:3000', // Local development
   'https://bus-ride-sync.vercel.app', // Production frontend
+  'https://ridesync.yasiru.site', // Production frontend
 ];
 
 const corsOptions = {
