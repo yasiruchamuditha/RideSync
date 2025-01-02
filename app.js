@@ -35,7 +35,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-      'http://localhost:3000',
+      // 'http://localhost:3000',
       'https://bus-ride-sync.vercel.app',
       'https://ridesync.yasiru.site', // Added this
     ],
