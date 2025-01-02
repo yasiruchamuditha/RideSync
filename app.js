@@ -36,19 +36,19 @@ connectDB();
 const app = express();
 
 // Enable CORS for your frontend application
-app.use(
-  cors({
-    // origin: [
-    //   // 'http://localhost:3000',
-    //   'https://bus-ride-sync.vercel.app',
-    //   'https://ridesync.yasiru.site', // Added this
-    // ],
-    // origin: true,
-    methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'], // Allow specific HTTP methods
-    credentials: true, // Allow cookies and credentials
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
-  })
-);
+// app.use(
+//   cors({
+//     // origin: [
+//     //   // 'http://localhost:3000',
+//     //   'https://bus-ride-sync.vercel.app',
+//     //   'https://ridesync.yasiru.site', // Added this
+//     // ],
+//     // origin: true,
+//     methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'], // Allow specific HTTP methods
+//     credentials: true, // Allow cookies and credentials
+//     allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
+//   })
+// );
 
 // app.use(cors()); // Enable CORS
 
