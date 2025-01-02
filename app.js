@@ -32,17 +32,26 @@ connectDB();
 const app = express();
 
 // Enable CORS for your frontend application
-const allowedOrigins = ['http://localhost:3000', 'https://bus-ride-sync.vercel.app'];
+// const allowedOrigins = ['http://localhost:3000', 'https://bus-ride-sync.vercel.app'];
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       // Allow requests with no origin (like mobile apps or Postman)
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error('Not allowed by CORS'));
+//       }
+//     },
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
+//     credentials: true, // Allow cookies and credentials
+//     allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
+//   })
+// );
+// Enable CORS for your frontend application
 app.use(
   cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps or Postman)
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
+    origin: true, // Allow all origins
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
     credentials: true, // Allow cookies and credentials
     allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
