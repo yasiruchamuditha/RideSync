@@ -16,6 +16,10 @@ import bookingRoutes from './routes/ticketBookingRoutes.js'; // Import the booki
 import swaggerUi from 'swagger-ui-express'; // Import swaggerUi
 import setupSwagger from './config/swaggerConfig.js'; // Swagger configuration function
 
+
+// Define the server port
+const PORT = process.env.PORT || 5000;
+
 // Load environment variables BEFORE using them
 dotenv.config();
 
@@ -73,5 +77,10 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ message: err.message || 'Internal Server Error' });
 });
 
-// Export the app for use in server.js
-export default app;
+// // Export the app for use in server.js
+// export default app;
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
