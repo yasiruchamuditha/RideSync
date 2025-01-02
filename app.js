@@ -43,7 +43,7 @@ app.use(
     //   'https://bus-ride-sync.vercel.app',
     //   'https://ridesync.yasiru.site', // Added this
     // ],
-    origin: true,
+    // origin: true,
     methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'], // Allow specific HTTP methods
     credentials: true, // Allow cookies and credentials
     allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
