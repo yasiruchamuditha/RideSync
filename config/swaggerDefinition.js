@@ -6,9 +6,9 @@ const swaggerDefinition = {
     description: 'Bus management API for RIDESYNC',
   },
   servers: [
-    {
-      url: 'http://localhost:5000',
-    },
+    // {
+    //   url: 'http://localhost:5000',
+    // },
     {
       url: 'https://bus-ride-sync.vercel.app',
     },
