@@ -9,6 +9,9 @@ const swaggerDefinition = {
     {
       url: 'http://localhost:5000',
     },
+    {
+      url: 'https://bus-ride-sync.vercel.app',
+    },
   ],
   components: {
     schemas: {
